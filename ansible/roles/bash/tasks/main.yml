@@ -1,0 +1,18 @@
+---
+- name: Delete ~/.profile
+  file:
+    path: "{{ ansible_env.HOME }}/.profile"
+    state: absent
+
+- name: Custom profile scripts
+  become: yes
+  copy:
+    src: "{{ role_path }}/files/matt.sh"
+    dest: /etc/profile.d/matt.sh
+    mode: 0644
+
+- name: Link .bash_profile
+  file:
+    src: "{{ role_path }}/files/.bash_profile"
+    dest: "{{ ansible_env.HOME }}/.bash_profile"
+    state: link

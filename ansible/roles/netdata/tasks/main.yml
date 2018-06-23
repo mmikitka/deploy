@@ -1,0 +1,14 @@
+---
+- name: Apt preferences
+  become: yes
+  copy:
+    src: "{{ role_path }}/files/preferences.d/netdata"
+    dest: /etc/apt/preferences.d/netdata
+
+- name: Install Netdata
+  become: yes
+  apt:
+    name: netdata
+    default_release: testing
+    update_cache: yes
+    state: latest

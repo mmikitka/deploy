@@ -1,0 +1,44 @@
+---
+- name: Install Git
+  become: yes
+  apt:
+    name: git
+    state: latest
+
+- name: Install ctags
+  become: yes
+  apt:
+    name: ctags
+    state: latest
+
+- name: Global Git configuration
+  command: "git config --global {{ item.key }} {{ item.value }}"
+  with_items:
+    - { key: "user.name", value: "{{ git_username }}" }
+    - { key: "user.email", value: "{{ git_email }}" }
+    - { key: "init.templatedir", value: "~/.git_template" }
+    - { key: "alias.ctags", value: "!.git/hooks/ctags" }
+
+- name: Create ~/.git_template
+  file:
+    path: "{{ ansible_env.HOME }}/.git_template"
+    state: directory
+    mode: 0750
+
+- name: Create ~/.git_template/hooks
+  file:
+    path: "{{ ansible_env.HOME }}/.git_template/hooks"
+    state: directory
+    mode: 0750
+
+- name: Copy default hooks
+  copy:
+    src: "{{ role_path }}/files/hooks/{{ item }}"
+    dest: "{{ ansible_env.HOME }}/.git_template/hooks/{{ item }}"
+    mode: 0750
+  with_items:
+    - ctags
+    - post-commit
+    - post-merge
+    - post-checkout
+    - post-rewrite

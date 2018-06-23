@@ -1,0 +1,17 @@
+---
+- name: Install xinit
+  become: yes
+  apt:
+    name: xinit
+    state: latest
+
+- name: Delete ~/.xinitrc
+  file:
+    path: "{{ ansible_env.HOME }}/.xinitrc"
+    state: absent
+
+- name: Link .xinitrc
+  file:
+    src: "{{ role_path }}/files/.xinitrc"
+    dest: "{{ ansible_env.HOME }}/.xinitrc"
+    state: link

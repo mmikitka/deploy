@@ -1,0 +1,24 @@
+---
+- name: "Matt: Dev workstation"
+  hosts: 127.0.0.1
+  connection: local
+  roles:
+    - git
+    - base
+    - wifi
+    - readline
+    - x11
+    - menu
+    - rxvt
+    - slock
+    - xmonad
+    - sound
+    - trackpad
+    - debian_sources
+    - netdata
+    - encrypted_partition
+    - bash
+    - python
+    - web_browser
+    - vim
+    - alternatives

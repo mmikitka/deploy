@@ -1,0 +1,17 @@
+---
+- name: Set alternatives
+  become: yes
+  command: "update-alternatives --set {{ item.key }} {{ item.value }}"
+  with_items:
+    - { key: "ctags",                 value: "/usr/bin/ctags-exuberant" }
+    - { key: "editor",                value: "/usr/bin/vim.basic" }
+    - { key: "etags",                 value: "/usr/bin/ctags-exuberant" }
+    - { key: "ex",                    value: "/usr/bin/vim.nox" }
+    - { key: "gnome-www-browser",     value: "/usr/bin/chromium" }
+    - { key: "pager",                 value: "/bin/less" }
+    - { key: "pico",                  value: "/bin/nano" }
+    - { key: "rxvt",                  value: "/usr/bin/urxvt" }
+    - { key: "view",                  value: "/usr/bin/vim.nox" }
+    - { key: "x-terminal-emulator",   value: "/usr/bin/urxvt" }
+    - { key: "x-window-manager",      value: "/usr/bin/xmonad" }
+    - { key: "x-www-browser",         value: "/usr/bin/chromium" }

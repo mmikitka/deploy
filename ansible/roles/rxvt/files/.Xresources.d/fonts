@@ -1,0 +1,4 @@
+*font: xft:Inconsolata:size=10
+Xft*dpi: 96
+Xft*antialias: true
+Xft*hinting: full

@@ -1,0 +1,6 @@
+---
+- name: Install slock
+  become: yes
+  apt:
+    name: slock
+    state: latest

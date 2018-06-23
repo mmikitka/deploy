@@ -1,0 +1,39 @@
+---
+- name: Install packages
+  become: yes
+  apt:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - firmware-iwlwifi
+    - iw
+    - wpasupplicant
+
+- name: Copy udev network rules
+  become: yes
+  copy:
+    src: "{{ role_path }}/files/rules.d/10-network.rules"
+    dest: /etc/udev/rules.d/10-network.rules
+
+- name: Copy network interface configurations
+  become: yes
+  copy:
+    src: "{{ role_path }}/files/interfaces.d/{{ item }}"
+    dest: "/etc/network/interfaces.d/{{ item }}"
+  with_items:
+    - net0
+    - usb0
+    - wifi0
+
+- name: Stat /etc/wpa_supplicant.conf
+  stat:
+    path: /etc/wpa_supplicant.conf
+  register: stat_wpa_supplicant
+
+- name: Set /etc/wpa_supplicant.conf permissions
+  file:
+    path: /etc/wpa_supplicant.conf
+    owner: root
+    group: root
+    mode: 0600
+  when: stat_wpa_supplicant.stat.exists

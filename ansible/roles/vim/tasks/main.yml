@@ -1,0 +1,50 @@
+---
+- name: Install Vim
+  become: yes
+  apt:
+    name: vim-nox
+    state: latest
+
+- name: Create directories
+  become: yes
+  file:
+    path: "/usr/local/etc/{{ item }}"
+    owner: root
+    group: root
+    mode: 0755
+  with_items:
+    - ""
+    - "vim-config"
+    - "vim-config/common"
+    - "vim-config/nvim"
+
+- name: Copy configuration
+  become: yes
+  copy:
+    src: "{{ role_path }}/files/{{ item }}"
+    dest: "/usr/local/etc/vim-config/{{ item }}"
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+    - common/after_plugins.vim
+    - common/before_plugins.vim
+    - common/init.vim
+    - common/plugins.vim
+    - nvim/after_plugins.vim
+    - nvim/plugins.vim
+  register: copy_config
+
+- name: Copy vimrc.local
+  become: yes
+  copy:
+    src: "{{ role_path }}/files/vimrc.local"
+    dest: /etc/vim/vimrc.local
+    owner: root
+    group: root
+    mode: 0644
+  register: copy_vimrc
+
+- name: Initialize Vim plugins
+  become: yes
+  command: vim -c ":q"

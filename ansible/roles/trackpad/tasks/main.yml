@@ -1,0 +1,22 @@
+---
+- name: Install sysfsutils
+  become: yes
+  apt:
+    name: sysfsutils
+    state: latest
+
+- name: Declare Trackpad speed
+  become: yes
+  copy:
+    content: devices/platform/i8042/serio1/serio2/speed = 255
+    dest: /etc/sysfs.d/trackpad.conf
+    mode: 0644
+  register: trackpad_conf
+
+- name: Enable sysfsutils
+  become: yes
+  systemd:
+    name: sysfsutils
+    state: restarted
+    enabled: yes
+  when: trackpad_conf.changed

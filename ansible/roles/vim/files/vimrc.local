@@ -1,0 +1,3 @@
+if filereadable("/usr/local/etc/vim-config/common/init.vim")
+  source /usr/local/etc/vim-config/common/init.vim
+endif

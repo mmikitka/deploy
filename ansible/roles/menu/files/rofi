@@ -1,0 +1,5 @@
+rofi.font: Inconsolata\ 11
+rofi.modi: combi,ssh
+rofi.combi-modi: run,drun
+rofi.terminal: /usr/bin/urxvt
+rofi.theme: ~/.rasi/solarized.rasi

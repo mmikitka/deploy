@@ -1,0 +1,12 @@
+---
+- name: Default release
+  become: yes
+  copy:
+    content: APT::Default-Release "stable";
+    dest: /etc/apt/apt.conf.d/99defaultrelease
+
+- name: Testing sources
+  become: yes
+  copy:
+    src: "{{ role_path }}/files/testing.list"
+    dest: /etc/apt/sources.list.d/testing.list

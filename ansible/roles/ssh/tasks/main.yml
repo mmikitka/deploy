@@ -1,0 +1,6 @@
+---
+- name: Install OpenSSH client
+  become: yes
+  apt:
+    name: openssh-client
+    state: latest

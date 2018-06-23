@@ -1,0 +1,10 @@
+#include ".Xresources.d/fonts"
+
+! Only use with Solarized color schemes
+URxvt.intensityStyles: false
+
+!#include ".Xresources.d/solarized-light"
+#include ".Xresources.d/solarized-dark"
+
+#include ".Xresources.d/rxvt-unicode"
+#include ".Xresources.d/rxvt-unicode-perls"

@@ -1,0 +1,3 @@
+SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="48:2a:e3:04:2b:1c", NAME="net0"
+SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="38:de:ad:a2:5b:93", NAME="wifi0"
+SUBSYSTEM=="net", ACTION=="add", DEVPATH=="/devices/pci*/*/usb*/*/*/net/*", NAME="usb0"

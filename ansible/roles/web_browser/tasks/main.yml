@@ -1,0 +1,6 @@
+---
+- name: Install Chromium
+  become: yes
+  apt:
+    name: chromium
+    state: latest

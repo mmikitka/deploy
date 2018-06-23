@@ -1,0 +1,34 @@
+URxvt.perl-ext-common: default,selection-to-clipboard,matcher
+
+! Extension: clipboard
+!  - Copy to/from the clipboard buffer
+URxvt.clipboard.autocopy: true
+
+!
+!2017-11-02: clipboard extension is deprecated in favour of
+!built-in functionality (as of build 9.20)
+! Copy: Left-Ctrl + Left-Alt + c
+! Paste: Left-Ctrl + Left-Alt + v
+!
+!URxvt.keysym.Control-C: perl:clipboard:copy
+!URxvt.keysym.Control-V: perl:clipboard:paste
+!URxvt.keysym.Alt-V: perl:clipboard:paste_escaped
+!URxvt.copyCommand: xsel -ib
+!URxvt.pasteCommand: xsel -ob
+
+! Extension: keyboard-select
+!  - Search buffers
+!  - Select and copy text
+!2017-11-02: Search support moved to the searchable-scrollback
+!Perl extension:
+! Start search: Left-Alt + s
+! Stop search: Esc
+!URxvt.keysym.Control-Escape: perl:keyboard-select:activate
+!URxvt.keysym.Control-slash: perl:keyboard-select:search
+
+! Extension: matcher
+!  - Underline URLs
+!  - Clickable URLs (open in browser of choice)
+URxvt.url-launcher: /usr/bin/firefox
+URxvt.matcher.button: 1
+URxvt.underlineURLs: true

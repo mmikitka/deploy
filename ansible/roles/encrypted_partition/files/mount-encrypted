@@ -1,0 +1,4 @@
+#!/bin/sh
+
+cryptsetup open --type luks /dev/nvme0n1p9 crypt_encrypted
+mount /encrypted

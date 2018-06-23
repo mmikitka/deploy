@@ -1,0 +1,17 @@
+---
+- name: Install XMonad
+  become: yes
+  apt:
+    name: xmonad
+    state: latest
+
+- name: Create ~/.xmonad directory
+  file:
+    dest: "{{ ansible_env.HOME }}/.xmonad"
+    state: directory
+
+- name: Link xmonad.hs
+  file:
+    src: "{{ role_path }}/files/xmonad.hs"
+    dest: "{{ ansible_env.HOME }}/.xmonad/xmonad.hs"
+    state: link
