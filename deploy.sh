@@ -3,10 +3,13 @@
 set -ea
 
 main() {
-  playbook="$1"
+  git_base_dir="$1"
+
   enforce_root
   install_ansible
-  run_ansible "$playbook"
+  install_git
+  clone_repo "$git_base_dir"
+  run_ansible "${git_base_dir}/deploy/ansible/playbook.yml"
 }
 
 enforce_root() {
@@ -28,12 +31,22 @@ EOF
   apt-get install -y ansible
 }
 
+install_git() {
+  apt-get install -y git
+}
+
+clone_repo() {
+  sudo -u "$SUDO_USER" /bin/sh -c \
+    "mkdir -p $1 && \
+     git clone https://github.com/mmikitka/deploy.git ${1}/deploy"
+}
+
 run_ansible() {
-  sudo -u "$SUDO_USER" /bin/sh -c "ansible-playbook $1"
+  sudo -u "$SUDO_USER" /bin/sh -c "ansible-playbook -K $1"
 }
 
 if [ $# -ne 1 ]; then
-  echo "Usage: $(basename $0) playbook.yml"
+  echo "Usage: $(basename $0) git_base_dir"
   exit 1
 fi
 
