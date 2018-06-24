@@ -1,4 +1,4 @@
-umask 027
+umask 022
 
 # if running bash
 if [ -n "$BASH_VERSION" ]; then
