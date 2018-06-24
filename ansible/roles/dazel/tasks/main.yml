@@ -1,0 +1,7 @@
+---
+- name: Install Dazel
+  become: yes
+  pip:
+    name: dazel
+    executable: pip3
+    state: latest
