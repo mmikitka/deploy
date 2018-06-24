@@ -36,9 +36,12 @@ install_git() {
 }
 
 clone_repo() {
-  sudo -u "$SUDO_USER" /bin/sh -c \
-    "mkdir -p $1 && \
-     git clone https://github.com/mmikitka/deploy.git ${1}/deploy"
+  repo_dir="${1}/deploy"
+  if [ ! -d "$repo_dir" ]; then
+    sudo -u "$SUDO_USER" /bin/sh -c \
+      "mkdir -p $1 && \
+       git clone https://github.com/mmikitka/deploy.git $repo_dir"
+  fi
 }
 
 run_ansible() {
