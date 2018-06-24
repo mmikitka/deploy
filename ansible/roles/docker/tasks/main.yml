@@ -26,6 +26,4 @@
 
 - name: Add to docker group
   become: yes
-  user:
-    name: "{{ ansible_env.USER }}"
-    group: docker
+  command: "usermod -a -G docker {{ ansible_env.USER }}"
