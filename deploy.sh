@@ -20,15 +20,7 @@ enforce_root() {
 }
 
 install_ansible() {
-  cat <<EOF > /etc/apt/sources.list.d/ansible.list
-deb http://ppa.launchpad.net/ansible/ansible/ubuntu trusty main
-EOF
-  apt-key list | grep "Launchpad PPA for Ansible" &> /dev/null
-  if [ $? -ne 0 ]; then
-    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 93C4A3FD7BB9C367
-  fi
-  apt-get update
-  apt-get install -y --allow-unauthenticated ansible
+  apt-get install -y ansible
 }
 
 install_git() {
@@ -36,9 +28,12 @@ install_git() {
 }
 
 clone_repo() {
-  sudo -u "$SUDO_USER" /bin/sh -c \
-    "mkdir -p $1 && \
-     git clone https://github.com/mmikitka/deploy.git ${1}/deploy"
+  repo_dir="${1}/deploy"
+  if [ ! -d "$repo_dir" ]; then
+    sudo -u "$SUDO_USER" /bin/sh -c \
+      "mkdir -p $1 && \
+       git clone https://github.com/mmikitka/deploy.git $repo_dir"
+  fi
 }
 
 run_ansible() {
