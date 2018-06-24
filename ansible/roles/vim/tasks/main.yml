@@ -8,7 +8,8 @@
 - name: Create directories
   become: yes
   file:
-    path: "/usr/local/etc/{{ item }}"
+    dest: "/usr/local/etc/{{ item }}"
+    state: directory
     owner: root
     group: root
     mode: 0755
@@ -47,4 +48,8 @@
 
 - name: Initialize Vim plugins
   become: yes
-  command: vim -c ":q"
+  command: vim -c PlugInstall -c q -c q
+
+- name: Set directory permissions
+  become: yes
+  command: find /usr/local/etc/vim-config -type d -execdir chmod 0755 '{}' \;

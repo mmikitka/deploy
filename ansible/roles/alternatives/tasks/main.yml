@@ -4,7 +4,7 @@
   command: "update-alternatives --set {{ item.key }} {{ item.value }}"
   with_items:
     - { key: "ctags",                 value: "/usr/bin/ctags-exuberant" }
-    - { key: "editor",                value: "/usr/bin/vim.basic" }
+    - { key: "editor",                value: "/usr/bin/vim.nox" }
     - { key: "etags",                 value: "/usr/bin/ctags-exuberant" }
     - { key: "ex",                    value: "/usr/bin/vim.nox" }
     - { key: "gnome-www-browser",     value: "/usr/bin/chromium" }

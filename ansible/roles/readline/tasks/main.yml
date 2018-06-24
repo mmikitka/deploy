@@ -2,5 +2,5 @@
 - name: Disable bell
   become: true
   lineinfile:
-    path: /etc/inputrc
+    dest: /etc/inputrc
     line: "set bell-style none"
