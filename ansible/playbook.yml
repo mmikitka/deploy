@@ -24,3 +24,4 @@
     - alternatives
     - docker
     - dazel
+    - git_lfs

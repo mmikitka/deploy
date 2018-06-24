@@ -1,0 +1,14 @@
+---
+- name: Install Git LFS repository
+  become: yes
+  shell: curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | bash
+
+- name: Install Git LFS
+  become: yes
+  apt:
+    name: git-lfs
+    state: latest
+
+- name: Initialize Git LFS
+  become: yes
+  command: git lfs install
