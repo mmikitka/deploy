@@ -1,0 +1,31 @@
+---
+- name: Install apt-transport-https
+  become: yes
+  apt:
+    name: apt-transport-https
+    state: latest
+
+- name: Add apt-key
+  become: yes
+  apt_key:
+    url: https://download.docker.com/linux/debian/gpg
+    state: present
+
+- name: Add apt repository
+  become: yes
+  apt_repository:
+    repo: deb [arch=amd64] https://download.docker.com/linux/debian stretch stable
+    state: present
+
+- name: Install Docker
+  become: yes
+  apt:
+    name: docker-ce
+    update_cache: yes
+    state: latest
+
+- name: Add to docker group
+  become: yes
+  user:
+    name: "{{ ansible_env.USER }}"
+    group: docker
