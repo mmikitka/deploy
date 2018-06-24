@@ -23,12 +23,12 @@ install_ansible() {
   cat <<EOF > /etc/apt/sources.list.d/ansible.list
 deb http://ppa.launchpad.net/ansible/ansible/ubuntu trusty main
 EOF
-  apt-key list | grep "Launchpad PPA for Ansible" > /dev/null
+  apt-key list | grep "Launchpad PPA for Ansible" &> /dev/null
   if [ $? -ne 0 ]; then
     apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 93C4A3FD7BB9C367
   fi
   apt-get update
-  apt-get install -y ansible
+  apt-get install -y --allow-unauthenticated ansible
 }
 
 install_git() {
