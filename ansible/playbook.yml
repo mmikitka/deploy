@@ -25,3 +25,4 @@
     - docker
     - dazel
     - git_lfs
+    - keepass

@@ -12,3 +12,4 @@
     - tree
     - wget
     - lsb-release
+    - scrot
