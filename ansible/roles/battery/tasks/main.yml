@@ -1,0 +1,18 @@
+---
+- name: Copy battery_alarm.py
+  become: yes
+  copy:
+    src: ../files/battery_alarm.py
+    dest: /usr/local/bin/battery_alarm.py
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Add cron rule
+  become: yes
+  cron:
+    name: battery_alarm
+    cron_file: /etc/crontab
+    job: /usr/local/bin/battery_alarm.py
+    minute: "*/5"
+    user: "{{ ansible_env.USER }}"
