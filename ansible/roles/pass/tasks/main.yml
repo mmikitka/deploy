@@ -1,0 +1,6 @@
+---
+- name: Install pass
+  become: yes
+  apt:
+    name: pass
+    state: latest

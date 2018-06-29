@@ -27,3 +27,12 @@
 - name: Add to docker group
   become: yes
   command: "usermod -a -G docker {{ ansible_env.USER }}"
+
+- name: Set Docker BUILD file repository path
+  set_fact:
+    docker_build_path: "{{ ansible_env.HOME }}/docker"
+
+- name: Create Docker BUILD repository
+  file:
+    path: "{{ docker_build_path }}"
+    state: directory
