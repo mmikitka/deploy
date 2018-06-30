@@ -1,4 +1,10 @@
 ---
+- name: Install beep
+  become: yes
+  apt:
+    name: beep
+    state: latest
+
 - name: Copy battery_alarm.py
   become: yes
   copy:
