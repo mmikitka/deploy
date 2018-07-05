@@ -37,3 +37,10 @@
         done
         unset i
       fi
+
+- name: Copy bash.bash to /etc/bashrc.d
+  become: yes
+  copy:
+    src: ../files/base.bash
+    dest: /etc/bashrc.d/base.bash
+    mode: 0644
