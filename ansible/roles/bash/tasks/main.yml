@@ -16,3 +16,24 @@
     src: "{{ role_path }}/files/.bash_profile"
     dest: "{{ ansible_env.HOME }}/.bash_profile"
     state: link
+
+- name: Create /etc/bashrc.d
+  become: yes
+  file:
+    path: /etc/bashrc.d
+    state: directory
+    mode: 0755
+
+- name: Support /etc/bashrc.d in /etc/bash.bashrc
+  become: yes
+  blockinfile:
+    dest: /etc/bash.bashrc
+    block: |
+      if [ -d /etc/bashrc.d ]; then
+        for i in /etc/bashrc.d/*.bash; do
+          if [ -r $i ]; then
+            . $i
+          fi
+        done
+        unset i
+      fi

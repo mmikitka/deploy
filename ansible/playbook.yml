@@ -3,6 +3,7 @@
   hosts: 127.0.0.1
   connection: local
   roles:
+    - bash
     - git
     - base
     - wifi
@@ -17,7 +18,6 @@
     - debian_sources
     - netdata
     - encrypted_partition
-    - bash
     - python
     - web_browser
     - vim
@@ -27,3 +27,4 @@
     - git_lfs
     - battery
     - pass
+    - autojump

@@ -1,0 +1,13 @@
+---
+- name: Install autojump
+  become: yes
+  apt:
+    name: autojump
+    state: latest
+
+- name: Copy autojump.sh to /etc/bashrc.d
+  become: yes
+  copy:
+    src: ../files/autojump.bash
+    dest: /etc/bashrc.d/autojump.bash
+    mode: 0644
