@@ -4,3 +4,21 @@
   apt:
     name: chromium
     state: latest
+
+- name: Add Chrome Apt key
+  become: yes
+  apt_key:
+    url: https://dl.google.com/linux/linux_signing_key.pub
+    state: present
+
+- name: Add Chrome Apt repository
+  become: yes
+  apt_repository:
+    repo: deb http://dl.google.com/linux/chrome/deb/ stable main
+    state: present
+
+- name: Install Chrome
+  become: yes
+  apt:
+    name: google-chrome-stable
+    state: latest
