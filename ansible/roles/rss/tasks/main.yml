@@ -1,0 +1,21 @@
+---
+- name: Install Newsboat
+  become: yes
+  apt:
+    name: newsboat
+    state: latest
+
+- name: Create local Newsboat configuration directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: 0700
+  with_items:
+    - "{{ ansible_env.HOME }}/.config/newsboat"
+    - "{{ ansible_env.HOME }}/.local/share/newsboat"
+
+- name: Copy Newsboat URLs
+  copy:
+    src: ../files/urls
+    dest: "{{ ansible_env.HOME }}/.config/newsboat/urls"
+    mode: 0600
