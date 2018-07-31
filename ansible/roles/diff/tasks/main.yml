@@ -1,0 +1,6 @@
+---
+- name: Install meld
+  become: yes
+  apt:
+    name: meld
+    state: latest
