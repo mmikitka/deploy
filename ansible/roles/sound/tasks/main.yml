@@ -7,3 +7,17 @@
   with_items:
     - pulseaudio
     - pavucontrol
+
+- name: Disable PC speaker
+  become: yes
+  modprobe:
+    name: pcspkr
+    state: absent
+
+- name: Blacklist PC speaker module
+  become: yes
+  lineinfile:
+    name: /etc/modprobe.d/blacklist.conf
+    create: yes
+    regexp: "pcspkr"
+    line: "blacklist pcspkr"
