@@ -82,7 +82,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm,               xK_F10), spawn "pactl set-sink-mute 1 toggle")
 
     -- suspend to RAM and disk (hybrid)
-    , ((modm,               xK_F12), spawn "sudo pm-suspend-hybrid")
+    , ((modm,               xK_F12), spawn "systemctl hybrid-sleep")
 
     -- close focused window
     , ((modm,               xK_F4), kill)

@@ -1,0 +1,54 @@
+---
+- name: Get swap partition
+  shell: lsblk -a -l -o +UUID | grep '\[SWAP\]' | awk '{print $8}'
+  register: _swap_part
+
+- block:
+  - name: Configure Grub
+    become: yes
+    lineinfile:
+      dest: /etc/default/grub
+      regexp: 'GRUB_CMDLINE_LINUX_DEFAULT'
+      line: 'GRUB_CMDLINE_LINUX_DEFAULT="quiet resume=UUID={{ _swap_part.stdout }}"'
+    register: _configure_grub
+
+  - name: Is /boot mounted?
+    command: mountpoint /boot
+    register: _boot_status
+    ignore_errors: yes
+
+  - name: Mount /boot
+    become: yes
+    command: mount /boot
+    when: _boot_status.failed is defined
+
+  - name: Update Grub
+    become: yes
+    command: update-grub
+    when: _configure_grub.changed
+
+  when: _swap_part.stdout != ""
+
+- name: Suspend always saves to disk
+  become: yes
+  template:
+    src: ../templates/sleep.conf.j2
+    dest: /etc/systemd/sleep.conf
+    owner: root
+    group: root
+    mode: 0644
+
+#- name: Register suspend hooks
+#  become: yes
+#  template:
+#    src: ../templates/suspend.service.j2
+#    dest: /etc/systemd/system/suspend@.service
+#    owner: root
+#    group: root
+#    mode: 0644
+#
+#- name: Enable suspend hooks
+#  become: yes
+#  service:
+#    name: "suspend@{{ ansible_env.USER }}"
+#    enabled: yes

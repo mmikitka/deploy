@@ -26,8 +26,10 @@
     - dazel
     - git_lfs
     - battery
+    - suspend_hibernate
     - pass
     - autojump
     - diff
     - rss
     - mplayer
+    - printer

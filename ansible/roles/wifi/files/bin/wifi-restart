@@ -1,0 +1,4 @@
+#!/bin/sh
+
+sudo ifdown wifi0
+sudo ifup wifi0

@@ -50,9 +50,9 @@ run_ansible() {
   shift
 
   if [ $# -gt 0 -a "$@" != "" ]; then
-    sudo -u "$SUDO_USER" /bin/sh -c "ansible-playbook --ask-become-pass --tags=${@} $playbook_path"
+    sudo -u "$SUDO_USER" /bin/sh -c "ansible-playbook --tags=${@} $playbook_path"
   else
-    sudo -u "$SUDO_USER" /bin/sh -c "ansible-playbook --ask-become-pass $playbook_path"
+    sudo -u "$SUDO_USER" /bin/sh -c "ansible-playbook $playbook_path"
   fi
 }
 

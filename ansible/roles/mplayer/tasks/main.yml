@@ -1,0 +1,6 @@
+---
+- name: Install mplayer
+  become: yes
+  apt:
+    name: mplayer
+    state: latest

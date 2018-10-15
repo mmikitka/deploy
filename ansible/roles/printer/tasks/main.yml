@@ -1,0 +1,20 @@
+---
+- name: Install CUPS
+  become: yes
+  apt:
+    name: cups
+    state: latest
+
+- name: Enable CUPS service
+  become: yes
+  service:
+    name: cups
+    enabled: yes
+    state: started
+
+- name: Add user to lpadmin group
+  become: yes
+  user:
+    name: "{{ ansible_env.USER }}"
+    groups: lpadmin
+    append: yes
