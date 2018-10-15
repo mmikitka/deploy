@@ -37,3 +37,21 @@
     group: root
     mode: 0600
   when: stat_wpa_supplicant.stat.exists
+
+- name: Copy wifi-restart
+  become: yes
+  copy:
+    src: ../files/bin/wifi-restart
+    dest: /usr/local/bin/wifi-restart
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Sudoers for wifi-restart
+  become: yes
+  template:
+    src: ../templates/sudoers.d/50-wifi
+    dest: /etc/sudoers.d/50-wifi
+    owner: root
+    group: root
+    mode: 0440
