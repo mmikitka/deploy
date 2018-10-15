@@ -1,4 +1,10 @@
 ---
+- name: Install Bash completion
+  become: yes
+  apt:
+    name: bash-completion
+    state: latest
+
 - name: Delete ~/.profile
   file:
     path: "{{ ansible_env.HOME }}/.profile"
@@ -7,8 +13,8 @@
 - name: Custom profile scripts
   become: yes
   copy:
-    src: "{{ role_path }}/files/matt.sh"
-    dest: /etc/profile.d/matt.sh
+    src: "{{ role_path }}/files/matt_profile.sh"
+    dest: /etc/profile.d/matt_profile.sh
     mode: 0644
 
 - name: Link .bash_profile
@@ -38,9 +44,12 @@
         unset i
       fi
 
-- name: Copy bash.bash to /etc/bashrc.d
+- name: Copy files to /etc/bashrc.d
   become: yes
   copy:
-    src: ../files/base.bash
-    dest: /etc/bashrc.d/base.bash
+    src: "../files/{{ item }}"
+    dest: "/etc/bashrc.d/{{ item }}"
     mode: 0644
+  with_items:
+    - base.bash
+    - matt_rc.bash
