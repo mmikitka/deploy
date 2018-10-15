@@ -53,3 +53,20 @@
   with_items:
     - base.bash
     - matt_rc.bash
+
+- name: Copy Liquid Prompt
+  become: yes
+  synchronize:
+    src: ../files/liquidprompt
+    dest: /usr/local/share/
+    recursive: yes
+    delete: yes
+
+- name: Configure Liquid Prompt
+  become: yes
+  copy:
+    src: ../files/liquidpromptrc
+    dest: /etc/liquidpromptrc
+    owner: root
+    group: root
+    mode: 0644
