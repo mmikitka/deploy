@@ -14,34 +14,25 @@ main() {
   deploy_repo_path="$1"
   shift
 
-  enforce_root
   install_ansible
   install_git
   clone_repo "$deploy_repo_path"
   run_ansible "${deploy_repo_path}/ansible/playbook.yml" "$@"
 }
 
-enforce_root() {
-  if [ "$(whoami)" != "root" ]; then
-    echo "You must run this root: try \"sudo $(basename -- $0)\""
-    exit 1
-  fi
-}
-
 install_ansible() {
-  apt-get install -y ansible
+  sudo apt-get install -y ansible
 }
 
 install_git() {
-  apt-get install -y git
+  sudo apt-get install -y git
 }
 
 clone_repo() {
   repo_dir="$1"
   if [ ! -d "$repo_dir" ]; then
-    sudo -u "$SUDO_USER" /bin/sh -c \
-      "mkdir -p $1 && \
-       git clone https://github.com/mmikitka/deploy.git $repo_dir"
+    mkdir -p $1
+    git clone https://github.com/mmikitka/deploy.git $repo_dir
   fi
 }
 
@@ -50,9 +41,9 @@ run_ansible() {
   shift
 
   if [ $# -gt 0 -a "$@" != "" ]; then
-    sudo -u "$SUDO_USER" /bin/sh -c "ansible-playbook --tags=${@} $playbook_path"
+    ansible-playbook --tags=${@} $playbook_path
   else
-    sudo -u "$SUDO_USER" /bin/sh -c "ansible-playbook $playbook_path"
+    ansible-playbook $playbook_path
   fi
 }
 
