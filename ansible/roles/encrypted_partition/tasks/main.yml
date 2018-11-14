@@ -13,22 +13,30 @@
       msg: "You must LUKS-format the partition with the following command: sudo cryptsetup -v --cipher aes-xts-plain64 --key-size=512 --hash=sha512 --iter-time=5000 --use-random luksFormat {{ encrypted_partition_device }} && sudo cryptsetup open --type luks {{ encrypted_partition_device }} crypt1 && sudo dd if=/dev/random of=/dev/mapper/crypt1 && sudo mkfs.ext4 /dev/mapper/crypt1"
     when: _is_luks_formatted.rc != 0
 
+  - name: Add crypttab entry for opening on boot
+    become: yes
+    crypttab:
+      name: crypt1
+      backing_device: "{{ encrypted_partition_device }}"
+      password: none
+      opts: luks
+      state: present
+
   - name: Mount point for encrypted partition
     become: yes
     file:
       path: /encrypted
       owner: root
       group: root
-      mode: 0700
+      mode: 0755
       state: directory
 
   - name: Mount entry for encrypted partition
     become: yes
     mount:
-      src: /dev/mapper/crypt1
       name: /encrypted
+      src: /dev/mapper/crypt1
       fstype: ext4
-      opts: rw,user,noauto
       state: present
 
   when: encrypted_partition_device is defined
