@@ -1,1 +1,34 @@
 ---
+- block:
+  - name: Was the partition LUKS-formatted?
+    become: yes
+    command: cryptsetup isLuks {{ encrypted_partition_device }}
+    ignore_errors: yes
+    changed_when: false
+    failed_when: false
+    register: _is_luks_formatted
+
+  - name: LUKS format encrypted partition
+    fail:
+      msg: "You must LUKS-format the partition with the following command: sudo cryptsetup -v --cipher aes-xts-plain64 --key-size=512 --hash=sha512 --iter-time=5000 --use-random luksFormat {{ encrypted_partition_device }} && sudo cryptsetup open --type luks {{ encrypted_partition_device }} crypt1 && sudo dd if=/dev/random of=/dev/mapper/crypt1 && sudo mkfs.ext4 /dev/mapper/crypt1"
+    when: _is_luks_formatted.rc != 0
+
+  - name: Mount point for encrypted partition
+    become: yes
+    file:
+      path: /encrypted
+      owner: root
+      group: root
+      mode: 0700
+      state: directory
+
+  - name: Mount entry for encrypted partition
+    become: yes
+    mount:
+      src: /dev/mapper/crypt1
+      name: /encrypted
+      fstype: ext4
+      opts: rw,user,noauto
+      state: present
+
+  when: encrypted_partition_device is defined
