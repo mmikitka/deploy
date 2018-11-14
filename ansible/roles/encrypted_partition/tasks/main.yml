@@ -37,6 +37,7 @@
       name: /encrypted
       src: /dev/mapper/crypt1
       fstype: ext4
+      opts: errors=remount-ro
       state: present
 
   when: encrypted_partition_device is defined
