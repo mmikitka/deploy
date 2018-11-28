@@ -29,6 +29,12 @@
     dest: "{{ ansible_env.HOME }}/.bash_aliases"
     state: link
 
+- name: Link .bashrc
+  file:
+    src: "{{ role_path }}/files/.bashrc"
+    dest: "{{ ansible_env.HOME }}/.bashrc"
+    state: link
+
 - name: Create /etc/bashrc.d
   become: yes
   file:
