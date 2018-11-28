@@ -1,0 +1,7 @@
+---
+- file:
+    src: "{{ role_path }}/files/{{ item }}"
+    dest: "{{ ansible_env.HOME }}/bin/{{ item }}"
+    state: link
+  with_items:
+    - pomtimer

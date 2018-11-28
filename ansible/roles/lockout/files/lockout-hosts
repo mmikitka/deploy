@@ -1,0 +1,14 @@
+#!/bin/sh
+
+for h in $HOSTS_DISABLED; do
+  deny_hosts="$h www.$h"
+  for dh in $deny_hosts; do
+    grep $dh /etc/hosts &>/dev/null;
+    if [ $? == 0 ]; then
+      echo "$dh already present"
+    else
+      echo "0.0.0.0 $dh" >> /etc/hosts
+      echo "Added $dh"
+    fi
+  done
+done

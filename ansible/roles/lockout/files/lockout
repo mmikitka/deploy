@@ -1,0 +1,66 @@
+#!/bin/sh
+
+create_lock_file() {
+  touch "$LOCK_FILE"
+}
+
+remove_lock_file() {
+  rm "$LOCK_FILE"
+}
+
+lockout() {
+  iptables -A OUTPUT -d 127.0.0.1/8 -j ACCEPT
+  iptables -A OUTPUT -j DROP
+}
+
+unlockout() {
+  rc-service iptables reload
+}
+
+main() {
+  duration_min=$1
+  duration_sec=$(expr 60 \* $duration_min)
+
+  if [ -e "$LOCK_FILE" ]; then
+    echo "Exiting: $LOCK_FILE lock file exists."
+    exit 1
+  else
+    create_lock_file
+    lockout
+    echo "Sleeping for $duration_min minutes"
+    sleep $duration_sec
+    unlockout
+    remove_lock_file
+  fi
+}
+
+usage ()
+{
+  echo "Usage :  $0 [options] [--]
+
+    Options:
+    -d|duration   Lockout duration, in minutes (Default: 25)
+    -h|help       Display this message
+    -v|version    Display script version"
+}
+
+LOCK_FILE=/tmp/lockout.lock
+
+__ScriptVersion="0.1"
+duration=25
+
+while getopts ":d:hv" opt
+do
+  case $opt in
+
+  d|duration) duration="$OPTARG";;
+  h|help) usage; exit 0;;
+  v|version)  echo "$0 -- Version $__ScriptVersion"; exit 0;;
+  *) echo -e "\n Option does not exist : $OPTARG\n"
+     usage; exit 1;;
+
+  esac
+done
+shift $(($OPTIND-1))
+
+main $duration

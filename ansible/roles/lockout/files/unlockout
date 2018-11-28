@@ -1,0 +1,16 @@
+#!/bin/sh
+
+LOCK_FILE=/tmp/lockout.lock
+
+if [ -e "$LOCK_FILE" ]; then
+  seed=$RANDOM
+  answer=`echo $seed | sha256sum | awk '{print $1}'`
+  echo "What is the SHA256 sum of $seed?"
+  read user_answer
+  if [[ "$answer" == "$user_answer" ]]; then
+    rc-service iptables reload
+    rm "$LOCK_FILE"
+  else
+    echo "Wrong! Get back to work."
+  fi
+fi
