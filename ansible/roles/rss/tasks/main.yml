@@ -14,8 +14,8 @@
     - "{{ ansible_env.HOME }}/.config/newsboat"
     - "{{ ansible_env.HOME }}/.local/share/newsboat"
 
-- name: Copy Newsboat URLs
-  copy:
-    src: ../files/urls
+- name: Link Newsboat URLs
+  file:
+    src: "{{ role_path }}/files/urls"
     dest: "{{ ansible_env.HOME }}/.config/newsboat/urls"
-    mode: 0600
+    state: link
