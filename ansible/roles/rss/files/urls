@@ -2,8 +2,9 @@ https://codeascraft.com/feed/atom/
 https://eng.uber.com/feed/
 https://blog.docker.com/feed/
 https://kubernetes.io/feed.xml
-https://developers.googleblog.com/feeds
-https://testing.googleblog.com/feeds
+https://blog.google/rss/
+https://feeds.feedburner.com/blogspot/RLXA
+https://feeds.feedburner.com/GDBcode
 http://www.brendangregg.com/blog/rss.xml
 https://www.confluent.io/feed/
 https://engineering.linkedin.com/blog.rss.html
@@ -14,9 +15,12 @@ https://medium.com/feed/netflix-techblog
 http://blog.memsql.com/feed/
 https://martinfowler.com/feed.atom
 http://blog.cleancoder.com/atom.xml
-https://www.cncf.io/newsroom/blog/
-https://githubengineering.com/
+https://www.cncf.io/feed/
+https://githubengineering.com/atom.xml
 http://vimcasts.org/feeds/ogg.rss
 https://www.hashicorp.com/feed.xml
 https://www.datadoghq.com/blog/feed
 https://blog.donbowman.ca/feed/
+https://itrevolution.com/feed/
+https://about.gitlab.com/atom.xml
+http://www.roughtype.com/?feed=rss2
