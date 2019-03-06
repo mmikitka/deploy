@@ -3,6 +3,7 @@ https://eng.uber.com/feed/
 https://blog.docker.com/feed/
 https://kubernetes.io/feed.xml
 https://blog.google/rss/
+https://cloudblog.withgoogle.com/products/gcp/rss/
 https://feeds.feedburner.com/blogspot/RLXA
 https://feeds.feedburner.com/GDBcode
 http://www.brendangregg.com/blog/rss.xml
@@ -22,5 +23,6 @@ https://www.hashicorp.com/feed.xml
 https://www.datadoghq.com/blog/feed
 https://blog.donbowman.ca/feed/
 https://itrevolution.com/feed/
+https://www.cloudbees.com/blog.xml
 https://about.gitlab.com/atom.xml
 http://www.roughtype.com/?feed=rss2
