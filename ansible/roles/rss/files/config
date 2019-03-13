@@ -1,0 +1,7 @@
+browser /usr/bin/google-chrome
+bind-key k up
+bind-key j down
+
+color listfocus color250 black
+color listfocus_unread color250 black
+color info color250 black
