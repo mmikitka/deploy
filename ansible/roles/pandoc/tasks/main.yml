@@ -1,0 +1,6 @@
+---
+- name: Install pandoc
+  become: yes
+  apt:
+    name: pandoc
+    state: latest
