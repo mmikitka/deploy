@@ -4,3 +4,21 @@
   apt:
     name: openssh-client
     state: latest
+
+- name: Create ssh-agent.service
+  copy:
+    src: ../files/ssh-agent.service
+    dst: $HOME/.config/systemd/user/ssh-agent.service
+
+- name: Enable ssh-agent.service
+  systemd:
+    name: ssh-agent
+    enabled: true
+    state: started
+    scope: user
+
+- name: Add AddKeysToAgent to SSH config
+  lineinfile:
+    path: $HOME/.ssh/config
+    regexp: 'AddKeysToAgent'
+    line: 'AddKeysToAgent yes'
