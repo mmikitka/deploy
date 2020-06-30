@@ -21,8 +21,6 @@
     set shell=/bin/bash
   endif
 
-  filetype plugin indent on  " Automatically detect file types
-
   " Always switch to the current file directory
   autocmd BufEnter * if bufname("") !~ "^\[A-Za-z0-9\]*://" | lcd %:p:h | endif
 
@@ -59,6 +57,40 @@
 " }}}
 
 " Functions {{{
+
+  " Initialize directories {{{
+    function! s:KeetsInitializeDirectories()
+      let parent = $HOME
+      let dir_list = {
+        \ 'vimbackup': 'backupdir',
+        \ 'vimviews': 'viewdir',
+        \ 'vimswap': 'directory',
+      \}
+
+      if has('persistent_undo')
+          let dir_list['vimundo'] = 'undodir'
+      endif
+
+      for [dirname, settingname] in items(dir_list)
+          let directory = parent . '/.' . dirname . '/'
+          if exists("*mkdir")
+              if !isdirectory(directory)
+                  call mkdir(directory)
+              endif
+          endif
+
+          if !isdirectory(directory)
+              echo "Warning: Unable to create directory: " . directory
+              echo "Try: mkdir -p " . directory
+          else
+              let directory = substitute(directory, " ", "\\\\ ", "g")
+              if settingname != 'null'
+                exec "set " . settingname . "=" . directory
+              endif
+          endif
+      endfor
+    endfunction
+  " }}}
 
   " From http://vimcasts.org/episodes/tabs-and-spaces/
   " Set tabstop, softtabstop and shiftwidth to the same value
@@ -193,9 +225,6 @@
   let maplocalleader = "\<SPACE>"
   set pastetoggle=<F12>           " pastetoggle (sane indentation on pastes)
 
-  " Yank from the cursor to the end of the line, to be consistent with C and D.
-  nnoremap Y y$
-
   " Clear search highlighting
   nmap <silent> <Leader>/ :nohlsearch<CR>
 
@@ -204,5 +233,12 @@
   map <C-j> <C-w>j
   map <C-k> <C-w>k
   map <C-l> <C-w>l
+
+" }}}
+
+" Initialize Directories {{{
+
+  " Initialize all of the relevant directories
+  call s:KeetsInitializeDirectories()
 
 " }}}

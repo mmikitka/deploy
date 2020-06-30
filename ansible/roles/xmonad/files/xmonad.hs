@@ -73,8 +73,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm .|. shiftMask, xK_l), spawn "/usr/bin/slock")
 
     -- launch rofi
-    , ((modm,               xK_p), spawn "dmenu_run -i -b -fn 'Inconsolata-14'")
-    , ((modm,               xK_s), spawn "rofi -show ssh")
+    , ((modm,               xK_p), spawn "rofi -font 'Iosevka Term regular 14' -show run")
 
     -- control volume
     , ((modm,               xK_F8), spawn "pactl set-sink-volume 1 -5%")
@@ -261,7 +260,7 @@ main = xmonad defaults
 --
 -- No need to modify this.
 --
-defaults = defaultConfig {
+defaults = def {
       -- simple stuff
         terminal           = myTerminal,
         focusFollowsMouse  = myFocusFollowsMouse,

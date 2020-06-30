@@ -1,7 +1,13 @@
 ---
+#- name: Install Bash completion
+#  become: yes
+#  apt:
+#    name: bash-completion
+#    state: latest
+
 - name: Install Bash completion
   become: yes
-  apt:
+  pacman:
     name: bash-completion
     state: latest
 
@@ -17,6 +23,11 @@
     dest: /etc/profile.d/matt_profile.sh
     mode: 0644
 
+- name: Delete ~/.bash_profile
+  file:
+    path: "{{ ansible_env.HOME }}/.bash_profile"
+    state: absent
+
 - name: Link .bash_profile
   file:
     src: "{{ role_path }}/files/.bash_profile"
@@ -28,6 +39,11 @@
     src: "{{ role_path }}/files/.bash_aliases"
     dest: "{{ ansible_env.HOME }}/.bash_aliases"
     state: link
+
+- name: Delete ~/.bashrc
+  file:
+    path: "{{ ansible_env.HOME }}/.bashrc"
+    state: absent
 
 - name: Link .bashrc
   file:
@@ -66,19 +82,19 @@
     - base.bash
     - matt_rc.bash
 
-- name: Copy Liquid Prompt
-  become: yes
-  synchronize:
-    src: ../files/liquidprompt
-    dest: /usr/local/share/
-    recursive: yes
-    delete: yes
-
-- name: Configure Liquid Prompt
-  become: yes
-  copy:
-    src: ../files/liquidpromptrc
-    dest: /etc/liquidpromptrc
-    owner: root
-    group: root
-    mode: 0644
+#- name: Copy Liquid Prompt
+#  become: yes
+#  synchronize:
+#    src: ../files/liquidprompt
+#    dest: /usr/local/share/
+#    recursive: yes
+#    delete: yes
+#
+#- name: Configure Liquid Prompt
+#  become: yes
+#  copy:
+#    src: ../files/liquidpromptrc
+#    dest: /etc/liquidpromptrc
+#    owner: root
+#    group: root
+#    mode: 0644

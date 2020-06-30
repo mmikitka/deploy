@@ -1,46 +1,42 @@
 ---
-- name: Install apt-transport-https
-  become: yes
-  apt:
-    name: apt-transport-https
-    state: latest
-
-- name: Add apt-key
-  become: yes
-  apt_key:
-    url: https://download.docker.com/linux/debian/gpg
-    state: present
-
-- name: Add apt repository
-  become: yes
-  apt_repository:
-    repo: deb [arch=amd64] https://download.docker.com/linux/debian stretch stable
-    state: present
+#- name: Install apt-transport-https
+#  become: yes
+#  apt:
+#    name: apt-transport-https
+#    state: latest
+#
+#- name: Add apt-key
+#  become: yes
+#  apt_key:
+#    url: https://download.docker.com/linux/debian/gpg
+#    state: present
+#
+#- name: Add apt repository
+#  become: yes
+#  apt_repository:
+#    repo: deb [arch=amd64] https://download.docker.com/linux/debian stretch stable
+#    state: present
+#
+#- name: Install Docker
+#  become: yes
+#  apt:
+#    name: docker-ce
+#    update_cache: yes
+#    state: latest
 
 - name: Install Docker
   become: yes
-  apt:
-    name: docker-ce
-    update_cache: yes
+  pacman:
+    name: docker
     state: latest
+
+- name: Start and enable the docker daemon
+  become: yes
+  systemd:
+    name: docker
+    state: started
+    enabled: yes
 
 - name: Add to docker group
   become: yes
   command: "usermod -a -G docker {{ ansible_env.USER }}"
-
-- name: Set Docker BUILD file repository path
-  set_fact:
-    docker_build_path: "{{ ansible_env.HOME }}/docker"
-
-- name: Create Docker BUILD repository
-  file:
-    path: "{{ docker_build_path }}"
-    state: directory
-
-- name: Install docker-compose
-  become: yes
-  get_url:
-    url: https://github.com/docker/compose/releases/download/1.23.1/docker-compose-Linux-x86_64
-    dest: /usr/local/bin/docker-compose
-    checksum: sha256:c176543737b8aea762022245f0f4d58781d3cb1b072bc14f3f8e5bb96f90f1a2
-    mode: 0755

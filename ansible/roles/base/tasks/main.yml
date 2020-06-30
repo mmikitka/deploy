@@ -1,15 +1,30 @@
 ---
+#- name: Install base packages
+#  become: yes
+#  apt:
+#    name: "{{ item }}"
+#    state: latest
+#  with_items:
+#    - curl
+#    - less
+#    - man
+#    - silversearcher-ag
+#    - tree
+#    - wget
+#    - lsb-release
+#    - scrot
+
 - name: Install base packages
   become: yes
-  apt:
-    name: "{{ item }}"
+  pacman:
+    name:
+      - curl
+      - less
+      - man
+      - the_silver_searcher
+      - tree
+      - wget
+      - lsb-release
+      - scrot
+      - keepassxc
     state: latest
-  with_items:
-    - curl
-    - less
-    - man
-    - silversearcher-ag
-    - tree
-    - wget
-    - lsb-release
-    - scrot

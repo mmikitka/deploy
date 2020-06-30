@@ -1,0 +1,39 @@
+---
+#- name: Install base packages
+#  become: yes
+#  apt:
+#    name: "{{ item }}"
+#    state: latest
+#  with_items:
+#    - curl
+#    - less
+#    - man
+#    - silversearcher-ag
+#    - tree
+#    - wget
+#    - lsb-release
+#    - scrot
+
+- name: Install official fonts
+  become: yes
+  pacman:
+    name: powerline-fonts
+    state: latest
+
+- name: Install AUR fonts
+  block:
+    - name: Import aur role
+      import_role:
+        name: aur
+
+    - name: Clone ttf-iosevka
+      git:
+        repo: https://aur.archlinux.org/ttf-iosevka.git
+        dest: ~/aur-builds/ttf-iosevka
+        # v3.2.2
+        version: d3eab4ccaae539f6339b9a8671a6eb7836626659
+
+    - name: Build and install ttf-iosevka
+      command: makepkg --install --syncdeps --rmdeps --clean --noconfirm
+      args:
+        chdir: ~/aur-builds/ttf-iosevka

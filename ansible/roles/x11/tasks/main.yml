@@ -1,9 +1,18 @@
 ---
-- name: Install xinit
+#- name: Install xinit
+#  become: yes
+#  apt:
+#    name: xinit
+#    state: latest
+
+- name: Install Xorg
   become: yes
-  apt:
-    name: xinit
-    state: latest
+  pacman:
+    name:
+      - xorg-server
+      - xorg-xinit
+      - xorg-xrandr
+    state: present
 
 - name: Delete ~/.xinitrc
   file:

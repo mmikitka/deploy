@@ -1,9 +1,38 @@
 ---
-- name: Install Vim
+#- name: Install Vim
+#  become: yes
+#  apt:
+#    name: vim-nox
+#    state: latest
+
+- name: Remove Vim
   become: yes
-  apt:
-    name: vim-nox
+  pacman:
+    name: vim
+    state: absent
+
+- name: Install NeoVim and supporting packages
+  become: yes
+  pacman:
+    name:
+      - neovim
+      - nodejs
+      - npm
+      - yarn
+      - powerline-fonts
+      - python-pylint
+      - python-jedi
+      - autopep8
     state: latest
+
+- name: Configure environment variables
+  become: yes
+  copy:
+    src: "{{ role_path }}/files/vim_profile.sh"
+    dest: /etc/profile.d/vim_profile.sh
+    owner: root
+    group: root
+    mode: 0644
 
 - name: Create directories
   become: yes
@@ -18,6 +47,7 @@
     - "vim-config"
     - "vim-config/common"
     - "vim-config/nvim"
+    - "vim-config/vim"
 
 - name: Copy configuration
   become: yes
@@ -28,28 +58,55 @@
     group: root
     mode: 0644
   with_items:
-    - common/after_plugins.vim
-    - common/before_plugins.vim
     - common/init.vim
+    - common/before_plugins.vim
     - common/plugins.vim
-    - nvim/after_plugins.vim
+    - common/after_plugins.vim
     - nvim/plugins.vim
-  register: copy_config
+    - nvim/after_plugins.vim
+    - vim/before_plugins.vim
 
-- name: Copy vimrc.local
+- name: Install Vim init
   become: yes
   copy:
     src: "{{ role_path }}/files/vimrc.local"
-    dest: /etc/vim/vimrc.local
+    dest: /etc/vimrc.local
     owner: root
     group: root
     mode: 0644
-  register: copy_vimrc
 
-- name: Initialize Vim plugins
+- name: Load Vim init
   become: yes
-  command: vim -c PlugInstall -c q -c q
+  blockinfile:
+    dest: /etc/vimrc
+    block: |
+      if filereadable("/usr/local/etc/vim-config/common/vimrc.local")
+        source /usr/local/etc/vim-config/common/vimrc.local
+      endif
+
+- name: Install NeoVim init
+  become: yes
+  copy:
+    src: "{{ role_path }}/files/vimrc.local"
+    dest: /etc/xdg/nvim/sysinit.vim
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Initialize NeoVim plugins (self)
+  command: nvim -c PlugInstall -c q -c q
+
+- name: Initialize NeoVim plugins (root)
+  become: yes
+  command: nvim -c PlugInstall -c q -c q
 
 - name: Set directory permissions
   become: yes
   command: find /usr/local/etc/vim-config -type d -execdir chmod 0755 '{}' \;
+
+- name: Symlink Vim to NeoVim
+  become: yes
+  file:
+    src: /usr/bin/nvim
+    dest: /usr/bin/vim
+    state: link

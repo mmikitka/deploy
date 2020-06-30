@@ -1,7 +1,13 @@
 ---
+#- name: Install XMonad
+#  become: yes
+#  apt:
+#    name: xmonad
+#    state: latest
+
 - name: Install XMonad
   become: yes
-  apt:
+  pacman:
     name: xmonad
     state: latest
 

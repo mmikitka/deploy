@@ -1,0 +1,46 @@
+" vim: sw=2 ts=2 sts=2 foldmethod=marker
+
+" Functions {{{
+
+  " Initialize directories {{{
+    function! s:KeetsInitializeDirectories()
+      let parent = $HOME
+      let dir_list = {
+        \ 'vimbackup': 'backupdir',
+        \ 'vimviews': 'viewdir',
+        \ 'vimswap': 'directory',
+      \}
+
+      if has('persistent_undo')
+          let dir_list['vimundo'] = 'undodir'
+      endif
+
+      for [dirname, settingname] in items(dir_list)
+          let directory = parent . '/.' . dirname . '/'
+          if exists("*mkdir")
+              if !isdirectory(directory)
+                  call mkdir(directory)
+              endif
+          endif
+
+          if !isdirectory(directory)
+              echo "Warning: Unable to create directory: " . directory
+              echo "Try: mkdir -p " . directory
+          else
+              let directory = substitute(directory, " ", "\\\\ ", "g")
+              if settingname != 'null'
+                exec "set " . settingname . "=" . directory
+              endif
+          endif
+      endfor
+    endfunction
+  " }}}
+
+" }}}
+
+" Initialize Directories {{{
+
+  " Initialize all of the relevant directories
+  call s:KeetsInitializeDirectories()
+
+" }}}

@@ -1,12 +1,18 @@
 ---
-- name: Install packages
+#- name: Install packages
+#  become: yes
+#  apt:
+#    name: "{{ item }}"
+#    state: latest
+#  with_items:
+#    - dmenu
+#    - rofi
+
+- name: Install Rofi
   become: yes
-  apt:
-    name: "{{ item }}"
+  pacman:
+    name: rofi
     state: latest
-  with_items:
-    - dmenu
-    - rofi
 
 - name: Create ~/.config
   file:

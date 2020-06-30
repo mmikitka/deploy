@@ -1,4 +1,8 @@
-*font: xft:Inconsolata:size=10
+*font: xft:Iosevka Term:regular:size=14
+*boldFont: xft:Iosevka Term:bold:size=14
+*imFont: xft:Iosevka Term:italic:size=14
+*italicFont: xft:Iosevka Term:italic:size=14
+*boldItalicFont: xft:Iosevka Term:bold italic:size=14
 Xft*dpi: 96
 Xft*antialias: true
 Xft*hinting: full
