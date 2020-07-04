@@ -1,0 +1,65 @@
+# I prefer to use virsh, but the majority of Internet documentation references
+# virt-manager (GUI). Goal is to get something working and tune later.
+- name: Install libvirt
+  become: yes
+  pacman:
+    name:
+      - dnsmasq
+      - ebtables
+      - iptables
+      - libvirt
+      - ovmf
+      - qemu
+      - virt-manager
+      - virt-viewer
+
+- name: Add to libvirt group
+  become: yes
+  command: "usermod -a -G libvirt {{ ansible_env.USER }}"
+
+- name: Add to kvm group
+  become: yes
+  command: "usermod -a -G kvm {{ ansible_env.USER }}"
+
+- name: Install AUR virtio-win
+  block:
+    - name: Import aur role
+      import_role:
+        name: aur
+
+    - name: Clone virtio-win
+      git:
+        repo: https://aur.archlinux.org/virtio-win.git
+        dest: ~/aur-builds/virtio-win
+
+    - name: Build and install virtio-win
+      command: makepkg --install --syncdeps --rmdeps --clean --noconfirm
+      args:
+        chdir: ~/aur-builds/virtio-win
+
+    - name: Copy files to /var/lib/libvirt/images
+      become: yes
+      copy:
+        src: "~/aur-builds/virtio-win/{{ item }}"
+        dest: "/var/lib/libvirt/images/{{ item }}"
+        owner: nobody
+        group: kvm
+        mode: 0644
+      with_items:
+        - virtio-win-0.1.185-1_amd64.vfd
+        - virtio-win-0.1.185-1_x86.vfd
+        - virtio-win-0.1.185-1.iso
+
+- name: Start and enable the libvirtd daemon
+  become: yes
+  systemd:
+    name: libvirtd
+    state: started
+    enabled: yes
+
+- name: Start and enable the virtlogd daemon
+  become: yes
+  systemd:
+    name: virtlogd
+    state: started
+    enabled: yes

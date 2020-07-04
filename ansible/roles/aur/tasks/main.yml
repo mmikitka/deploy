@@ -4,7 +4,6 @@
     name:
       - base-devel
       - git
-    state: latest
 
 - name: Create AUR build directory
   file:
