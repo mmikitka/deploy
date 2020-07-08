@@ -3,39 +3,41 @@
   hosts: 127.0.0.1
   connection: local
   roles:
-#    - base
-#    - fonts
-#    - bash
-#    - git
-#    - wifi
-#    - readline
-#    - x11
-#    - menu
-#    - rxvt
-#    - slock
-#    - xmonad
-#    - sound
-#    - trackpad
-#    - debian_sources
-#    - netdata
-#    - encrypted_partition
-#    - python
-#    - web_browser
-#    - vim
-#    - virt
-#    - alternatives
-#    - docker
-#    - dazel
-#    - git_lfs
-#    - battery
-#    - suspend_hibernate
-#    - pass
-#    - autojump
-#    - diff
-#    - rss
-#    - mplayer
-#    - printer
-#    - lockout
-#    - pomtimer
-#    - graphviz
-#    - pandoc
+    #    - base
+    #    - fonts
+    #    - bash
+    #    - git
+    #    - wifi
+    #    - readline
+    #    - x11
+    #    - menu
+    #    - rxvt
+    #    - slock
+    #    - xmonad
+    #    - sound
+    #    - trackpad
+    #    - debian_sources
+    #    - netdata
+    #    - encrypted_partition
+    #    - python
+    #    - web_browser
+    - vim
+    #    - virt
+    #    - alternatives
+    #    - docker
+    #    - dazel
+    #    - git_lfs
+    #    - battery
+    #    - suspend_hibernate
+    #    - pass
+    #    - autojump
+    #    - diff
+    #    - rss
+    #    - mplayer
+    #    - printer
+    #    - lockout
+    #    - pomtimer
+    #    - graphviz
+    #    - pandoc
+    # - remmina
+

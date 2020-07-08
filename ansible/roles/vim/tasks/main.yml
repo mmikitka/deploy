@@ -95,11 +95,11 @@
     mode: 0644
 
 - name: Initialize NeoVim plugins (self)
-  command: nvim -c PlugInstall -c q -c q
+  command: nvim -c PlugInstall -c q
 
 - name: Initialize NeoVim plugins (root)
   become: yes
-  command: nvim -c PlugInstall -c q -c q
+  command: nvim -c PlugInstall -c q
 
 - name: Set directory permissions
   become: yes
@@ -118,3 +118,9 @@
     src: /usr/bin/nvim
     dest: /usr/bin/vi
     state: link
+
+- name: Copy CoC configuration
+  copy:
+    src: "{{ role_path }}/files/nvim/coc-settings.json"
+    dest: "{{ ansible_env.HOME }}/.config/nvim/coc-settings.json"
+

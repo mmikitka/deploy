@@ -1,0 +1,26 @@
+{
+  "coc.preferences.formatOnSaveFiletypes": [
+    "json",
+    "python",
+    "yaml"
+  ],
+  "python.jediEnabled": true,
+  "python.linting.enabled": true,
+  "python.linting.pylintEnabled": true,
+  "yaml.format.enable": true,
+  "yaml.validate": true,
+  "yaml.hover": false,
+  "yaml.completion": true,
+  "yaml.schemas": {
+    "http://json.schemastore.org/ansible-stable-2.9": [
+      "**/roles/**/*.yml",
+      "**/roles/**/*.yaml",
+      "**/group_vars/**/*.yml",
+      "**/group_vars/**/*.yaml",
+      "**/host_vars/**/*.yml",
+      "**/host_vars/**/*.yaml",
+      "playbook.yml",
+      "playbook.yaml"
+    ]
+  }
+}
