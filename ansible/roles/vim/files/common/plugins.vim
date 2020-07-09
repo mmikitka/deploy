@@ -39,8 +39,9 @@
 " Programming {{{
 
   Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
-  Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
-  Plug 'neoclide/coc-python', {'do': 'yarn install --frozen-lockfile'}
+  Plug 'neoclide/coc-json', {'tag': '1.2.6', 'do': 'yarn install --frozen-lockfile'}
+  Plug 'neoclide/coc-python', {'tag': '1.2.12', 'do': 'yarn install --frozen-lockfile'}
+  Plug 'neoclide/coc-yaml', {'tag': '1.0.4', 'do': 'yarn install --frozen-lockfile'}
 "  Plug 'scrooloose/nerdcommenter'
 "  Plug 'tpope/vim-fugitive'
 "  Plug 'ctrlpvim/ctrlp.vim'
