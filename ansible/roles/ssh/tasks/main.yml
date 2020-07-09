@@ -1,14 +1,14 @@
 ---
-- name: Install OpenSSH client
-  become: yes
-  apt:
-    name: openssh-client
-    state: latest
+# - name: Install OpenSSH client
+#   become: yes
+#   apt:
+#     name: openssh-client
+#     state: latest
 
 - name: Create ssh-agent.service
   copy:
     src: ../files/ssh-agent.service
-    dst: $HOME/.config/systemd/user/ssh-agent.service
+    dest: $HOME/.config/systemd/user/ssh-agent.service
 
 - name: Enable ssh-agent.service
   systemd:
@@ -20,5 +20,19 @@
 - name: Add AddKeysToAgent to SSH config
   lineinfile:
     path: $HOME/.ssh/config
-    regexp: 'AddKeysToAgent'
-    line: 'AddKeysToAgent yes'
+    regexp: "AddKeysToAgent"
+    line: "  AddKeysToAgent yes"
+
+- name: Add KillUserProcesses to logind.conf
+  become: yes
+  lineinfile:
+    path: /etc/systemd/logind.conf
+    regexp: "^KillUserProcesses"
+    line: "KillUserProcesses=yes"
+
+- name: Enable the systemd unit
+  systemd:
+    name: ssh-agent
+    scope: user
+    enabled: yes
+    state: started

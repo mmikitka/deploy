@@ -21,7 +21,7 @@
     #    - encrypted_partition
     #    - python
     #    - web_browser
-    - vim
+    #- vim
     #    - virt
     #    - alternatives
     #    - docker
@@ -40,4 +40,4 @@
     #    - graphviz
     #    - pandoc
     # - remmina
-
+    - ssh
