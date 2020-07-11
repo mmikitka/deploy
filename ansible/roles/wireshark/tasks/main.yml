@@ -1,0 +1,7 @@
+---
+- name: Install Wireshark and tcpdump
+  become: yes
+  pacman:
+    name:
+      - wireshark-qt
+      - tcpdump

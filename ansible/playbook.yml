@@ -40,4 +40,5 @@
     #    - graphviz
     #    - pandoc
     # - remmina
-    - ssh
+    # - ssh
+    - wireshark
