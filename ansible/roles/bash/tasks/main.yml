@@ -77,24 +77,24 @@
   copy:
     src: "../files/{{ item }}"
     dest: "/etc/bashrc.d/{{ item }}"
-    mode: 0644
+    mode: "0644"
   with_items:
     - base.bash
     - matt_rc.bash
 
-#- name: Copy Liquid Prompt
-#  become: yes
-#  synchronize:
-#    src: ../files/liquidprompt
-#    dest: /usr/local/share/
-#    recursive: yes
-#    delete: yes
-#
-#- name: Configure Liquid Prompt
-#  become: yes
-#  copy:
-#    src: ../files/liquidpromptrc
-#    dest: /etc/liquidpromptrc
-#    owner: root
-#    group: root
-#    mode: 0644
+- name: Clone liquidprompt
+  become: yes
+  git:
+    repo: https://github.com/nojhan/liquidprompt.git
+    dest: /usr/local/share/liquidprompt
+    version: v1.12-rc.1
+    umask: "0022"
+
+- name: Configure Liquid Prompt
+  become: yes
+  copy:
+    src: ../files/liquidpromptrc
+    dest: /etc/liquidpromptrc
+    owner: root
+    group: root
+    mode: "0644"
