@@ -24,3 +24,12 @@
     src: "{{ role_path }}/files/.xinitrc"
     dest: "{{ ansible_env.HOME }}/.xinitrc"
     state: link
+
+- name: Harden X11
+  become: yes
+  copy:
+    src: ../files/50-matt-harden.conf
+    dest: /usr/share/X11/xorg.conf.d/50-matt-harden.conf
+    owner: root
+    group: root
+    mode: "0644"

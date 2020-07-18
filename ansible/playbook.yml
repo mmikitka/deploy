@@ -9,10 +9,10 @@
     # - git
     #    - wifi
     #    - readline
-    #    - x11
+    #- x11
     #- menu
     #    - rxvt
-    #    - slock
+    #- slock
     #- xmonad
     #    - sound
     #    - trackpad
@@ -42,3 +42,4 @@
     # - remmina
     # - ssh
     #- wireshark
+    # - go

@@ -1,6 +1,11 @@
 ---
+#- name: Install slock
+#  become: yes
+#  apt:
+#    name: slock
+#    state: latest
+
 - name: Install slock
   become: yes
-  apt:
+  pacman:
     name: slock
-    state: latest
