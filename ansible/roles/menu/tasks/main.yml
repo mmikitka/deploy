@@ -22,8 +22,8 @@
 
 - name: Link rofi configuration
   file:
-    src: "{{ role_path }}/files/config"
-    dest: "{{ ansible_env.HOME }}/.config/rofi/config"
+    src: "{{ role_path }}/files/config.rasi"
+    dest: "{{ ansible_env.HOME }}/.config/rofi/config.rasi"
     state: link
 
 - name: Create ~/.rasi

@@ -1,0 +1,18 @@
+configuration {
+  font: "Iosevka Term regular 14";
+  modi: "combi,ssh";
+  combi-modi: "window,run";
+  terminal: "/usr/bin/urxvt";
+  theme: "~/.rasi/solarized.rasi";
+
+  /* Remove key bindings for use elsewhere */
+  kb-remove-to-eol: "Control+z";
+  kb-accept-entry: "Return,KP_Enter";
+  kb-remove-char-back: "BackSpace,Shift+BackSpace";
+
+  /* Redefined key bindings */
+  kb-row-up: "Up,Control+k";
+  kb-row-down: "Down,Control+j";
+  kb-mode-next: "Control+l,Control+n";
+  kb-mode-previous: "Control+h,Control+p";
+}
