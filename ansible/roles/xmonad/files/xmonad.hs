@@ -73,7 +73,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm .|. shiftMask, xK_l), spawn "/usr/bin/slock")
 
     -- launch rofi
-    , ((modm,               xK_p), spawn "rofi -font 'Iosevka Term regular 14' -show run")
+    , ((modm,               xK_p), spawn "rofi -show combi")
 
     -- control volume
     , ((modm,               xK_F8), spawn "pactl set-sink-volume 1 -5%")

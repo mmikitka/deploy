@@ -1,5 +1,0 @@
-rofi.font: Iosevka\ Term\ regular\ 14
-rofi.modi: combi,ssh
-rofi.combi-modi: run,drun
-rofi.terminal: /usr/bin/urxvt
-rofi.theme: ~/.rasi/solarized.rasi

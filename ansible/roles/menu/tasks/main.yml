@@ -14,16 +14,16 @@
     name: rofi
     state: latest
 
-- name: Create ~/.config
+- name: Create ~/.config/rofi
   file:
-    path: "{{ ansible_env.HOME }}/.config"
+    path: "{{ ansible_env.HOME }}/.config/rofi"
     state: directory
     mode: 0750
 
 - name: Link rofi configuration
   file:
-    src: "{{ role_path }}/files/rofi"
-    dest: "{{ ansible_env.HOME }}/.config/rofi"
+    src: "{{ role_path }}/files/config"
+    dest: "{{ ansible_env.HOME }}/.config/rofi/config"
     state: link
 
 - name: Create ~/.rasi

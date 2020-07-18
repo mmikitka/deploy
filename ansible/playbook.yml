@@ -10,10 +10,10 @@
     #    - wifi
     #    - readline
     #    - x11
-    #    - menu
+    #- menu
     #    - rxvt
     #    - slock
-    #    - xmonad
+    #- xmonad
     #    - sound
     #    - trackpad
     #    - debian_sources
@@ -22,7 +22,7 @@
     #    - python
     #    - web_browser
     #- vim
-    #    - virt
+    #- virt
     #    - alternatives
     #    - docker
     #    - dazel
