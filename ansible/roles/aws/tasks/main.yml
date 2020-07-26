@@ -1,0 +1,4 @@
+- name: Install aws CLI tool
+  become: yes
+  pacman:
+    name: aws-cli
