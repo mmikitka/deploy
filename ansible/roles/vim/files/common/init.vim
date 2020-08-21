@@ -16,57 +16,24 @@
     endfunction
   " }}}
 
-  " Initialize directories {{{
-    function! s:KeetsInitializeDirectories()
-      let parent = $HOME
-      let dir_list = {
-        \ 'vimbackup': 'backupdir',
-        \ 'vimviews': 'viewdir',
-        \ 'vimswap': 'directory',
-        \ 'vimsauce': 'null'
-      \}
-
-      if has('persistent_undo')
-          let dir_list['vimundo'] = 'undodir'
-      endif
-
-      for [dirname, settingname] in items(dir_list)
-          let directory = parent . '/.' . dirname . '/'
-          if exists("*mkdir")
-              if !isdirectory(directory)
-                  call mkdir(directory)
-              endif
-          endif
-
-          if !isdirectory(directory)
-              echo "Warning: Unable to create directory: " . directory
-              echo "Try: mkdir -p " . directory
-          else
-              let directory = substitute(directory, " ", "\\\\ ", "g")
-              if settingname != 'null'
-                exec "set " . settingname . "=" . directory
-              endif
-          endif
-      endfor
-    endfunction
-  " }}}
-
 " }}}
 
-" Initialize Directories {{{
+" Initialization {{{
 
   " Assume that all configuration files are stored
   " in the directories above this file (init.vim).
   let g:keets_config_dir = expand("<sfile>:p:h"). '/..'
 
-  " Initialize all of the relevant directories
-  call s:KeetsInitializeDirectories()
-
   " Vim/NVim configuration sub-directory
-  let s:keets_vim_fork = 'nvim'
-  if !has('nvim')
-    let s:keets_vim_fork = 'vim'
+  let s:keets_vim_fork = 'vim'
+  let g:keets_plug_install_path = g:keets_config_dir . '/common/autoload/plug.vim'
+  let g:keets_plugin_dir = g:keets_config_dir . '/common/plugged'
+  if has('nvim')
+    let s:keets_vim_fork = 'nvim'
+    let g:keets_plug_install_path = stdpath('data') . '/nvim/common/autoload/plug.vim'
+    let g:keets_plugin_dir = stdpath('data') . '/plugged'
   endif
+  echo(g:keets_plug_install_path)
 
 " }}}
 

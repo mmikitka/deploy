@@ -1,9 +1,69 @@
 ---
-- name: Install Vim
+- block:
+    - name: Remove Vim
+      become: yes
+      apt:
+        name:
+          - vim-nox
+          - vim-runtime
+        state: absent
+
+    - name: Install NeoVim as an AppImage
+      become: yes
+      get_url:
+        url: https://github.com/neovim/neovim/releases/download/v0.4.4/nvim.appimage
+        dest: /usr/bin/nvim
+        owner: root
+        group: root
+        mode: 0755
+        checksum: sha256:1eea3d44f55bab0856d08737c0c50ead7645ae3afd6352a252bc403b9843ec95
+
+    - name: Install supporting packages
+      become: yes
+      apt:
+        name:
+          - ansible-lint
+          - fonts-powerline
+          - nodejs
+          - npm
+          - pylint3
+          - python3-autopep8
+          - python3-jedi
+          - yarn
+        state: latest
+  when: ansible_distribution == 'Debian'
+
+- block:
+    - name: Remove Vim
+      become: yes
+      pacman:
+        name: vim
+        state: absent
+
+    - name: Install NeoVim and supporting packages
+      become: yes
+      pacman:
+        name:
+          - ansible-lint
+          - autopep8
+          - neovim
+          - nodejs
+          - npm
+          - yarn
+          - powerline-fonts
+          - python-pylint
+          - python-jedi
+        state: latest
+  when: ansible_distribution == 'ArchLinux'
+
+- name: Configure environment variables
   become: yes
-  apt:
-    name: vim-nox
-    state: latest
+  copy:
+    src: "{{ role_path }}/files/vim_profile.sh"
+    dest: /etc/profile.d/vim_profile.sh
+    owner: root
+    group: root
+    mode: 0644
 
 - name: Create directories
   become: yes
@@ -18,6 +78,7 @@
     - "vim-config"
     - "vim-config/common"
     - "vim-config/nvim"
+    - "vim-config/vim"
 
 - name: Copy configuration
   become: yes
@@ -28,28 +89,91 @@
     group: root
     mode: 0644
   with_items:
-    - common/after_plugins.vim
-    - common/before_plugins.vim
     - common/init.vim
+    - common/before_plugins.vim
     - common/plugins.vim
-    - nvim/after_plugins.vim
+    - common/after_plugins.vim
     - nvim/plugins.vim
-  register: copy_config
+    - nvim/after_plugins.vim
+    - vim/before_plugins.vim
 
-- name: Copy vimrc.local
+- name: Install Vim init
   become: yes
   copy:
     src: "{{ role_path }}/files/vimrc.local"
-    dest: /etc/vim/vimrc.local
+    dest: /etc/vimrc.local
     owner: root
     group: root
     mode: 0644
-  register: copy_vimrc
 
-- name: Initialize Vim plugins
+- name: Touch /etc/vimrc
   become: yes
-  command: vim -c PlugInstall -c q -c q
+  file:
+    path: /etc/vimrc
+    state: touch
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Load Vim init
+  become: yes
+  blockinfile:
+    dest: /etc/vimrc
+    block: |
+      if filereadable("/usr/local/etc/vim-config/common/vimrc.local")
+        source /usr/local/etc/vim-config/common/vimrc.local
+      endif
+
+- name: Create NeoVim configuration directory
+  become: yes
+  file:
+    dest: /etc/xdg/nvim
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Install NeoVim init
+  become: yes
+  copy:
+    src: "{{ role_path }}/files/vimrc.local"
+    dest: /etc/xdg/nvim/sysinit.vim
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Initialize NeoVim plugins (self)
+  command: nvim -c PlugInstall -c q
+
+- name: Initialize NeoVim plugins (root)
+  become: yes
+  command: nvim -c PlugInstall -c q
 
 - name: Set directory permissions
   become: yes
   command: find /usr/local/etc/vim-config -type d -execdir chmod 0755 '{}' \;
+
+- name: Symlink Vim to NeoVim
+  become: yes
+  file:
+    src: /usr/bin/nvim
+    dest: /usr/bin/vim
+    state: link
+
+- name: Symlink Vi to NeoVim
+  become: yes
+  file:
+    src: /usr/bin/nvim
+    dest: /usr/bin/vi
+    state: link
+
+- name: Create CoC configuration directory
+  file:
+    dest: "{{ ansible_env.HOME }}/.config/nvim"
+    state: directory
+    mode: 0750
+
+- name: Copy CoC configuration
+  copy:
+    src: "{{ role_path }}/files/nvim/coc-settings.json"
+    dest: "{{ ansible_env.HOME }}/.config/nvim/coc-settings.json"
