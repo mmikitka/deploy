@@ -12,3 +12,7 @@ alias opusbacklog="vim -O ${OPUS_DATA_DIR}/backlog.opus"
 alias opusdoing="vim -O ${OPUS_DATA_DIR}/doing.opus"
 alias opusblocked="vim -O ${OPUS_DATA_DIR}/blocked.opus"
 alias tasklog="vim ~/Documents/time-management/tasklog.csv"
+
+if [ -r ~/.bash_aliases.local ]; then
+  . ~/.bash_aliases.local
+fi
