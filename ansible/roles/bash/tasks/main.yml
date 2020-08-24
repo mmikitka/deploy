@@ -1,15 +1,21 @@
 ---
-#- name: Install Bash completion
-#  become: yes
-#  apt:
-#    name: bash-completion
-#    state: latest
+- block:
+  - name: Install Bash completion
+    become: yes
+    apt:
+      name: bash-completion
+      state: latest
+  when:
+    - ansible_distribution == 'Debian'
 
-- name: Install Bash completion
-  become: yes
-  pacman:
-    name: bash-completion
-    state: latest
+- block:
+  - name: Install Bash completion
+    become: yes
+    pacman:
+      name: bash-completion
+      state: latest
+  when:
+    - ansible_distribution == 'ArchLinux'
 
 - name: Delete ~/.profile
   file:
@@ -87,7 +93,7 @@
   git:
     repo: https://github.com/nojhan/liquidprompt.git
     dest: /usr/local/share/liquidprompt
-    version: v1.12-rc.1
+    version: v1.12.0
     umask: "0022"
 
 - name: Configure Liquid Prompt
