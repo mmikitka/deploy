@@ -15,5 +15,3 @@ BROWSER=/usr/bin/google-chrome
 if [ -r ~/.bash_aliases ]; then
   . ~/.bash_aliases
 fi
-
-complete -C /home/matt/bin/mc mc
