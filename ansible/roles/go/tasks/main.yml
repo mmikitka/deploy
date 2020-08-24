@@ -1,4 +1,29 @@
-- name: Install go
-  become: yes
-  pacman:
-    name: go
+- block:
+  - name: Fetch golang
+    get_url:
+      url: https://golang.org/dl/go1.15.linux-amd64.tar.gz
+      checksum: sha256:2d75848ac606061efe52a8068d0e647b35ce487a15bb52272c427df485193602
+      dest: /tmp/go.tar.gz
+
+  - name: Extract golang
+    become: yes
+    command: tar -C /usr/local -xzf /tmp/go.tar.gz
+
+  - name: Add golang to PATH
+    become: yes
+    copy:
+      content: 'export PATH="$PATH:/usr/local/go/bin"'
+      dest: /etc/profile.d/golang.sh
+      owner: root
+      group: root
+      mode: "0644"
+  when:
+    - ansible_distribution == 'Debian'
+
+- block:
+  - name: Install go
+    become: yes
+    pacman:
+      name: go
+  when:
+    - ansible_distribution == 'ArchLinux'
