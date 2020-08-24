@@ -1,21 +1,24 @@
 ---
-#- name: Install PulseAudio and utilities
-#  become: yes
-#  apt:
-#    name: "{{ item }}"
-#    state: latest
-#  with_items:
-#    - pulseaudio
-#    - pavucontrol
-
+- block:
 - name: Install PulseAudio and utilities
   become: yes
-  pacman:
+  apt:
     name:
-      - alsa-utils
       - pulseaudio
       - pavucontrol
-    state: latest
+  when:
+    - ansible_distribution == 'Debian'
+
+- block:
+  - name: Install PulseAudio and utilities
+    become: yes
+    pacman:
+      name:
+        - alsa-utils
+        - pulseaudio
+        - pavucontrol
+  when:
+    - ansible_distribution == 'ArchLinux'
 
 - name: Disable PC speaker
   become: yes
