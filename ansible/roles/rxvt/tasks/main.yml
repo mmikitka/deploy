@@ -1,18 +1,24 @@
 ---
-#- name: Install rxvt
-#  become: yes
-#  apt:
-#    name: rxvt-unicode-256color
-#    state: latest
+- block:
+  - name: Install rxvt
+    become: yes
+    apt:
+      name: rxvt-unicode-256color
+      state: latest
+  when:
+    - ansible_distribution == 'Debian'
 
-- name: Install rxvt
-  become: yes
-  pacman:
-    name:
-      - rxvt-unicode
-      - rxvt-unicode-truecolor
-      - urxvt-perls
-    state: latest
+-block:
+  - name: Install rxvt
+    become: yes
+    pacman:
+      name:
+        - rxvt-unicode
+        - rxvt-unicode-truecolor
+        - urxvt-perls
+      state: latest
+  when:
+    - ansible_distribution == 'ArchLinux'
 
 - name: Link configuration files
   file:
