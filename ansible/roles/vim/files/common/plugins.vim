@@ -43,7 +43,7 @@
   Plug 'neoclide/coc-python', {'tag': '1.2.12', 'do': 'yarn install --frozen-lockfile'}
   Plug 'neoclide/coc-yaml', {'tag': '1.0.4', 'do': 'yarn install --frozen-lockfile'}
 "  Plug 'scrooloose/nerdcommenter'
-"  Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive'
 "  Plug 'ctrlpvim/ctrlp.vim'
 "  Plug 'SirVer/ultisnips'
 "  Plug 'honza/vim-snippets'
