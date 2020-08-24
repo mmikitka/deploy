@@ -1,47 +1,59 @@
 ---
-- name: "Matt: Dev workstation"
+- name: Base
   hosts: 127.0.0.1
   connection: local
   roles:
+    - autojump
     - base
-    - fonts
     - bash
+    - diff
+    - docker
+    - fonts
     - git
-    - wifi
-    - readline
-    - x11
+    - go
+    - lockout
     - menu
+    - mplayer
+    - netdata
+    - pass
+    - python
+    - readline
+    - remmina
+    - rss
     - rxvt
     - slock
-    - xmonad
     - sound
-    - trackpad
-    - debian_sources
-    - netdata
-    - encrypted_partition
-    - python
-    - web_browser
+    - ssh
+    - tasklog
     - vim
-    - virt
+    - web_browser
+    - x11
+    - xmonad
+
+- name: Debian
+  hosts: 127.0.0.1
+  connection: local
+  roles:
     - alternatives
-    - docker
-    - dazel
-    - git_lfs
     - battery
-    - suspend_hibernate
-    - pass
-    - autojump
-    - diff
-    - rss
-    - mplayer
-    - printer
-    - lockout
-    - pomtimer
+    - debian_sources
+    - encrypted_partition
     - graphviz
     - pandoc
-    - remmina
-    - ssh
+    - pomtimer
+    - printer
+    - suspend_hibernate
+    - trackpad
+    - wifi
     - wireshark
-    - go
+  when:
+    - ansible_distribution == 'Debian'
+
+- name: ArchLinux
+  hosts: 127.0.0.1
+  connection: local
+  roles:
     - aws
-    - tasklog
+    - virt
+  when:
+    - ansible_distribution == 'ArchLinux'
