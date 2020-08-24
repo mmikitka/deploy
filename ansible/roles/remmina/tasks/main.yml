@@ -1,7 +1,15 @@
-- name: Install remmina
-  become: yes
-  pacman:
-    name:
-      - remmina
-      - freerdp
+- block:
+  - name: Install remmina
+    become: yes
+    apt:
+      name: remmina
+  when:
+    - ansible_distribution == 'Debian'
 
+- block:
+  - name: Install remmina
+    become: yes
+    pacman:
+      name: remmina
+  when:
+    - ansible_distribution == 'ArchLinux'
