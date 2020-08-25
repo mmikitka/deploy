@@ -8,7 +8,7 @@
   when:
     - ansible_distribution == 'Debian'
 
--block:
+- block:
   - name: Install rxvt
     become: yes
     pacman:

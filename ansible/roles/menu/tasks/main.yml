@@ -14,29 +14,29 @@
     pacman:
       name: rofi
       state: latest
-
-  - name: Create ~/.config/rofi
-    file:
-      path: "{{ ansible_env.HOME }}/.config/rofi"
-      state: directory
-      mode: 0750
-
-  - name: Link rofi configuration
-    file:
-      src: "{{ role_path }}/files/config.rasi"
-      dest: "{{ ansible_env.HOME }}/.config/rofi/config.rasi"
-      state: link
-
-  - name: Create ~/.rasi
-    file:
-      path: "{{ ansible_env.HOME }}/.rasi"
-      state: directory
-      mode: 0750
-
-  - name: Link solarized.rasi
-    file:
-      src: "{{ role_path }}/files/solarized.rasi"
-      dest: "{{ ansible_env.HOME }}/.rasi/solarized.rasi"
-      state: link
   when:
     - ansible_distribution == 'ArchLinux'
+
+- name: Create ~/.config/rofi
+  file:
+    path: "{{ ansible_env.HOME }}/.config/rofi"
+    state: directory
+    mode: 0750
+
+- name: Link rofi configuration
+  file:
+    src: "{{ role_path }}/files/config.rasi"
+    dest: "{{ ansible_env.HOME }}/.config/rofi/config.rasi"
+    state: link
+
+- name: Create ~/.rasi
+  file:
+    path: "{{ ansible_env.HOME }}/.rasi"
+    state: directory
+    mode: 0750
+
+- name: Link solarized.rasi
+  file:
+    src: "{{ role_path }}/files/solarized.rasi"
+    dest: "{{ ansible_env.HOME }}/.rasi/solarized.rasi"
+    state: link

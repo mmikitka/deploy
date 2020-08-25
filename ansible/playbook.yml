@@ -3,57 +3,59 @@
   hosts: 127.0.0.1
   connection: local
   roles:
-    - autojump
-    - base
-    - bash
-    - diff
-    - docker
-    - fonts
-    - git
-    - go
-    - lockout
-    - menu
-    - mplayer
-    - netdata
-    - pass
-    - python
-    - readline
-    - remmina
-    - rss
-    - rxvt
-    - slock
-    - sound
-    - ssh
-    - tasklog
-    - vim
-    - web_browser
-    - x11
-    - xmonad
+    # Passing on Debian
+    # - autojump
+    # - base
+    # - bash
+    # - diff
+    # - docker
+    # - fonts
+    # - go
+    #- menu
+    #- remmina
+    #- rxvt
+    #- slock
+    #- sound
+    #- vim
+    # Untested on Debian
+      #- git
+      #- lockout
+      #- mplayer
+      #- netdata
+      #- pass
+      #- python
+      #- readline
+      #- rss
+      #- ssh
+      #- tasklog
+      #- web_browser
+      #- x11
+      #- xmonad
 
-- name: Debian
-  hosts: 127.0.0.1
-  connection: local
-  roles:
-    - alternatives
-    - battery
-    - debian_sources
-    - encrypted_partition
-    - graphviz
-    - pandoc
-    - pomtimer
-    - printer
-    - suspend_hibernate
-    - trackpad
-    - wifi
-    - wireshark
-  when:
-    - ansible_distribution == 'Debian'
-
-- name: ArchLinux
-  hosts: 127.0.0.1
-  connection: local
-  roles:
-    - aws
-    - virt
-  when:
-    - ansible_distribution == 'ArchLinux'
+#- name: Debian
+#  hosts: 127.0.0.1
+#  connection: local
+#  roles:
+#    - alternatives
+#    - battery
+#    - debian_sources
+#    - encrypted_partition
+#    - graphviz
+#    - pandoc
+#    - pomtimer
+#    - printer
+#    - suspend_hibernate
+#    - trackpad
+#    - wifi
+#    - wireshark
+#  when:
+#    - ansible_distribution == 'Debian'
+#
+#- name: ArchLinux
+#  hosts: 127.0.0.1
+#  connection: local
+#  roles:
+#    - aws
+#    - virt
+#  when:
+#    - ansible_distribution == 'ArchLinux'

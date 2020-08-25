@@ -1,11 +1,11 @@
 ---
 - block:
-- name: Install PulseAudio and utilities
-  become: yes
-  apt:
-    name:
-      - pulseaudio
-      - pavucontrol
+  - name: Install PulseAudio and utilities
+    become: yes
+    apt:
+      name:
+        - pulseaudio
+        - pavucontrol
   when:
     - ansible_distribution == 'Debian'
 
