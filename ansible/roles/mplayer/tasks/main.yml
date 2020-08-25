@@ -1,6 +1,18 @@
 ---
-- name: Install mplayer
-  become: yes
-  apt:
-    name: mplayer
-    state: latest
+- block:
+  - name: Install mplayer
+    become: yes
+    apt:
+      name: mplayer
+      state: latest
+  when:
+    - ansible_distribution == 'Debian'
+
+- block:
+  - name: Install mplayer
+    become: yes
+    pacman:
+      name: mplayer
+      state: latest
+  when:
+    - ansible_distribution == 'ArchLinux'
