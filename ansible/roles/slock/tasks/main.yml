@@ -1,6 +1,17 @@
 ---
-- name: Install slock
-  become: yes
-  apt:
-    name: slock
-    state: latest
+- block:
+  - name: Install slock
+    become: yes
+    apt:
+      name: slock
+      state: latest
+  when:
+    - ansible_distribution == 'Debian'
+
+- block:
+  - name: Install slock
+    become: yes
+    pacman:
+      name: slock
+  when:
+    - ansible_distribution == 'ArchLinux'

@@ -1,0 +1,11 @@
+- name: Install AUR helper packages
+  become: yes
+  pacman:
+    name:
+      - base-devel
+      - git
+
+- name: Create AUR build directory
+  file:
+    name: ~/aur-builds
+    state: directory

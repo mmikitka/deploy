@@ -1,9 +1,21 @@
 ---
-- name: Install Bash completion
-  become: yes
-  apt:
-    name: bash-completion
-    state: latest
+- block:
+  - name: Install Bash completion
+    become: yes
+    apt:
+      name: bash-completion
+      state: latest
+  when:
+    - ansible_distribution == 'Debian'
+
+- block:
+  - name: Install Bash completion
+    become: yes
+    pacman:
+      name: bash-completion
+      state: latest
+  when:
+    - ansible_distribution == 'ArchLinux'
 
 - name: Delete ~/.profile
   file:
@@ -17,6 +29,11 @@
     dest: /etc/profile.d/matt_profile.sh
     mode: 0644
 
+- name: Delete ~/.bash_profile
+  file:
+    path: "{{ ansible_env.HOME }}/.bash_profile"
+    state: absent
+
 - name: Link .bash_profile
   file:
     src: "{{ role_path }}/files/.bash_profile"
@@ -28,6 +45,11 @@
     src: "{{ role_path }}/files/.bash_aliases"
     dest: "{{ ansible_env.HOME }}/.bash_aliases"
     state: link
+
+- name: Delete ~/.bashrc
+  file:
+    path: "{{ ansible_env.HOME }}/.bashrc"
+    state: absent
 
 - name: Link .bashrc
   file:
@@ -61,18 +83,18 @@
   copy:
     src: "../files/{{ item }}"
     dest: "/etc/bashrc.d/{{ item }}"
-    mode: 0644
+    mode: "0644"
   with_items:
     - base.bash
     - matt_rc.bash
 
-- name: Copy Liquid Prompt
+- name: Clone liquidprompt
   become: yes
-  synchronize:
-    src: ../files/liquidprompt
-    dest: /usr/local/share/
-    recursive: yes
-    delete: yes
+  git:
+    repo: https://github.com/nojhan/liquidprompt.git
+    dest: /usr/local/share/liquidprompt
+    version: v1.12.0
+    umask: "0022"
 
 - name: Configure Liquid Prompt
   become: yes
@@ -81,4 +103,4 @@
     dest: /etc/liquidpromptrc
     owner: root
     group: root
-    mode: 0644
+    mode: "0644"

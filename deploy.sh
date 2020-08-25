@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -ea
+set -eaux
 
 usage() {
   echo "Usage : $(basename $0) [options] [--] DEPLOY_REPO_PATH
@@ -21,11 +21,19 @@ main() {
 }
 
 install_ansible() {
-  sudo apt-get install -y ansible
+  if [ "$OS_RELEASE" = "arch" ]; then
+    sudo pacman -Sy --noconfirm ansible
+  else
+    sudo apt-get install -y ansible
+  fi
 }
 
 install_git() {
-  sudo apt-get install -y git
+  if [ "$OS_RELEASE" = "arch" ]; then
+    sudo pacman -Sy --noconfirm git
+  else
+    sudo apt-get install -y git
+  fi
 }
 
 clone_repo() {
@@ -46,6 +54,8 @@ run_ansible() {
     ansible-playbook $playbook_path
   fi
 }
+
+OS_RELEASE=$(grep "^ID=" /etc/os-release | cut -d= -f2)
 
 tags=""
 while getopts "ht:" opt

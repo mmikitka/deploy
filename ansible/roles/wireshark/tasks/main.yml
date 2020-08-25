@@ -1,0 +1,20 @@
+---
+- block:
+  - name: Install Wireshark and tcpdump
+    become: yes
+    apt:
+      name:
+        - wireshark-qt
+        - tcpdump
+  when:
+    - ansible_distribution == 'Debian'
+
+- block:
+  - name: Install Wireshark and tcpdump
+    become: yes
+    pacman:
+      name:
+        - wireshark-qt
+        - tcpdump
+  when:
+    - ansible_distribution == 'ArchLinux'

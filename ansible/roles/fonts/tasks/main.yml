@@ -1,0 +1,74 @@
+---
+- block:
+  - name: Install powerline fonts
+    become: yes
+    apt:
+      name: fonts-powerline
+      state: latest
+
+  - name: Create ~/fonts directory
+    file:
+      path: "{{ ansible_env.HOME }}/fonts"
+      state: directory
+
+  - name: Download Iosevka font package
+    get_url:
+      url: https://github.com/be5invis/Iosevka/releases/download/v3.4.6/pkg-iosevka-3.4.6.zip
+      checksum: sha256:d8e69edd9568c7e97ab813d2ec6de72a9a13938b10aa1be684e7413cd7aa4e48
+      dest: "{{ ansible_env.HOME }}/fonts/pkg-iosevka-3.4.6.zip"
+
+  - name: Create temp directory
+    file:
+      path: /tmp/pkg-iosevka
+      state: directory
+
+  - name: Unarchive Iosevka font package
+    unarchive:
+      src: "{{ ansible_env.HOME }}/fonts/pkg-iosevka-3.4.6.zip"
+      dest: /tmp/pkg-iosevka
+
+  - name: Create TTF fonts directory
+    become: yes
+    file:
+      path: /usr/share/fonts/truetype/iosevka
+      state: directory
+      owner: root
+      group: root
+      mode: "0755"
+
+  - name: Install Iosevka fonts
+    become: yes
+    shell: install -m644 /tmp/pkg-iosevka/ttf/*.ttf /usr/share/fonts/truetype/iosevka/
+
+  - name: Update font cache
+    become: yes
+    command: fc-cache
+  when:
+    - ansible_distribution == 'Debian'
+
+- block:
+  - name: Install powerline fonts
+    become: yes
+    pacman:
+      name: powerline-fonts
+      state: latest
+
+  - name: Install AUR fonts
+    block:
+      - name: Import aur role
+        import_role:
+          name: aur
+
+      - name: Clone ttf-iosevka
+        git:
+          repo: https://aur.archlinux.org/ttf-iosevka.git
+          dest: ~/aur-builds/ttf-iosevka
+          # v3.4.6
+          version: d3eab4ccaae539f6339b9a8671a6eb7836626659
+
+      - name: Build and install ttf-iosevka
+        command: makepkg --install --syncdeps --rmdeps --clean --noconfirm
+        args:
+          chdir: ~/aur-builds/ttf-iosevka
+  when:
+    - ansible_distribution == 'ArchLinux'

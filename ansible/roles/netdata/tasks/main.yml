@@ -1,14 +1,37 @@
 ---
-- name: Apt preferences
-  become: yes
-  copy:
-    src: "{{ role_path }}/files/preferences.d/netdata"
-    dest: /etc/apt/preferences.d/netdata
+- block:
+  - name: Install apt dependencies
+    become: yes
+    apt:
+      name:
+        - apt-transport-https
+        - debian-archive-keyring
 
-- name: Install Netdata
-  become: yes
-  apt:
-    name: netdata
-    default_release: testing
-    update_cache: yes
-    state: latest
+  - name: Add Netdata Apt repository
+    become: yes
+    apt_repository:
+      filename: netdata_netdata
+      repo: deb https://packagecloud.io/netdata/netdata/debian/ buster main
+
+  - name: Add Netdata GPG key
+    become: yes
+    apt_key:
+      url:  https://packagecloud.io/netdata/netdata/gpgkey
+      state: present
+
+  - name: Install Netdata
+    become: yes
+    apt:
+      name: netdata
+      state: latest
+  when:
+    - ansible_distribution == 'Debian'
+
+- block:
+  - name: Install Netdata
+    become: yes
+    pacman:
+      name: netdata
+      state: latest
+  when:
+    - ansible_distribution == 'ArchLinux'

@@ -1,23 +1,32 @@
 ---
-- name: Install packages
-  become: yes
-  apt:
-    name: "{{ item }}"
-    state: latest
-  with_items:
-    - dmenu
-    - rofi
+- block:
+  - name: Install packages
+    become: yes
+    apt:
+      name: rofi
+      state: latest
+  when:
+    - ansible_distribution == 'Debian'
 
-- name: Create ~/.config
+- block:
+  - name: Install Rofi
+    become: yes
+    pacman:
+      name: rofi
+      state: latest
+  when:
+    - ansible_distribution == 'ArchLinux'
+
+- name: Create ~/.config/rofi
   file:
-    path: "{{ ansible_env.HOME }}/.config"
+    path: "{{ ansible_env.HOME }}/.config/rofi"
     state: directory
     mode: 0750
 
 - name: Link rofi configuration
   file:
-    src: "{{ role_path }}/files/rofi"
-    dest: "{{ ansible_env.HOME }}/.config/rofi"
+    src: "{{ role_path }}/files/config.rasi"
+    dest: "{{ ansible_env.HOME }}/.config/rofi/config.rasi"
     state: link
 
 - name: Create ~/.rasi

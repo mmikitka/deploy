@@ -1,18 +1,15 @@
----
 - block:
-  - name: Install mplayer
+  - name: Install remmina
     become: yes
     apt:
-      name: mplayer
-      state: latest
+      name: remmina
   when:
     - ansible_distribution == 'Debian'
 
 - block:
-  - name: Install mplayer
+  - name: Install remmina
     become: yes
     pacman:
-      name: mplayer
-      state: latest
+      name: remmina
   when:
     - ansible_distribution == 'ArchLinux'

@@ -1,9 +1,21 @@
 ---
-- name: Install XMonad
-  become: yes
-  apt:
-    name: xmonad
-    state: latest
+- block:
+  - name: Install XMonad
+    become: yes
+    apt:
+      name: xmonad
+      state: latest
+  when:
+    - ansible_distribution == 'Debian'
+
+- block:
+  - name: Install XMonad
+    become: yes
+    pacman:
+      name: xmonad
+      state: latest
+  when:
+    - ansible_distribution == 'ArchLinux'
 
 - name: Create ~/.xmonad directory
   file:

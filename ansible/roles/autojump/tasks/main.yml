@@ -1,13 +1,43 @@
----
-- name: Install autojump
-  become: yes
-  apt:
-    name: autojump
-    state: latest
+- block:
+  - name: Install autojump
+    become: yes
+    apt:
+      name: autojump
+      state: latest
 
-- name: Copy autojump.bash to /etc/bashrc.d
-  become: yes
-  copy:
-    src: ../files/autojump.bash
-    dest: /etc/bashrc.d/autojump.bash
-    mode: 0644
+  - name: Copy autojump.bash to /etc/bashrc.d
+    become: yes
+    copy:
+      src: ../files/autojump.bash.debian
+      dest: /etc/bashrc.d/autojump.bash
+      mode: 0644
+
+  when:
+    - ansible_distribution == 'Debian'
+
+- block:
+  - name: Import aur role
+    import_role:
+      name: aur
+
+  - name: Clone autojump
+    git:
+      repo: https://aur.archlinux.org/autojump.git
+      dest: ~/aur-builds/autojump
+      # v22.5.3-5
+      version: 22b96ef925fe122bfa374138442f031e10de138c
+
+  - name: Build and install autojump
+    command: makepkg --install --syncdeps --rmdeps --clean --noconfirm
+    args:
+      chdir: ~/aur-builds/autojump
+
+  - name: Copy autojump.bash to /etc/bashrc.d
+    become: yes
+    copy:
+      src: ../files/autojump.bash.archlinux
+      dest: /etc/bashrc.d/autojump.bash
+      mode: 0644
+
+  when:
+    - ansible_distribution == 'ArchLinux'

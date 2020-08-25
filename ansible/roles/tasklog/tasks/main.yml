@@ -1,0 +1,5 @@
+- name: Link tasklog-report
+  file:
+    src: "{{ role_path }}/files/tasklog-report"
+    dest: "{{ ansible_env.HOME }}/bin/tasklog-report"
+    state: link
