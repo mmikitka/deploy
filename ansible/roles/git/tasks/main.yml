@@ -1,15 +1,25 @@
 ---
-- name: Install Git
-  become: yes
-  apt:
-    name: git
-    state: latest
+- block:
+  - name: Install Git and ctags
+    become: yes
+    apt:
+      name:
+        - git
+        - ctags
+      state: latest
+  when:
+    - ansible_distribution == 'Debian'
 
-- name: Install ctags
-  become: yes
-  apt:
-    name: ctags
-    state: latest
+- block:
+  - name: Install Git and ctags
+    become: yes
+    pacman:
+      name:
+        - git
+        - ctags
+      state: latest
+  when:
+    - ansible_distribution == 'ArchLinux'
 
 - name: Global Git configuration
   command: "git config --global {{ item.key }} {{ item.value }}"
