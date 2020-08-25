@@ -1,3 +1,0 @@
-Package: netdata
-Pin: release a=testing
-Pin-Priority: 900
