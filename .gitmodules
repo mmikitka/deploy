@@ -1,3 +1,0 @@
-[submodule "ansible/roles/bash/files/liquidprompt"]
-	path = ansible/roles/bash/files/liquidprompt
-	url = https://github.com/nojhan/liquidprompt.git
