@@ -1,9 +1,21 @@
 ---
-- name: Install Newsboat
-  become: yes
-  apt:
-    name: newsboat
-    state: latest
+- block:
+  - name: Install Newsboat
+    become: yes
+    apt:
+      name: newsboat
+      state: latest
+  when:
+    - ansible_distribution == 'Debian'
+
+- block:
+  - name: Install Newsboat
+    become: yes
+    pacman:
+      name: newsboat
+      state: latest
+  when:
+    - ansible_distribution == 'ArchLinux'
 
 - name: Create local Newsboat configuration directories
   file:
