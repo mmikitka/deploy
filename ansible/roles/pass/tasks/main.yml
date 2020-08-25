@@ -1,6 +1,18 @@
 ---
-- name: Install pass
-  become: yes
-  apt:
-    name: pass
-    state: latest
+- block:
+  - name: Install pass
+    become: yes
+    apt:
+      name: pass
+      state: latest
+  when:
+    - ansible_distribution == 'Debian'
+
+- block:
+  - name: Install pass
+    become: yes
+    pacman:
+      name: pass
+      state: latest
+  when:
+    - ansible_distribution == 'ArchLinux'
