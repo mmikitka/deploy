@@ -1,9 +1,12 @@
 ---
-# - name: Install OpenSSH client
-#   become: yes
-#   apt:
-#     name: openssh-client
-#     state: latest
+- block:
+  - name: Install OpenSSH client
+    become: yes
+    apt:
+      name: openssh-client
+      state: latest
+  when:
+    - ansible_distribution == 'Debian'
 
 - name: Create ssh-agent.service
   copy:
