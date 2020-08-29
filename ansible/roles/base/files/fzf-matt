@@ -1,0 +1,2 @@
+_fzf_setup_completion path ag git kubectl
+_fzf_setup_completion dir tree

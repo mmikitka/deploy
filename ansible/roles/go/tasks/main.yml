@@ -9,10 +9,10 @@
     become: yes
     command: tar -C /usr/local -xzf /tmp/go.tar.gz
 
-  - name: Add golang to PATH
+  - name: Configure Go environment variables
     become: yes
     copy:
-      content: 'export PATH="$PATH:/usr/local/go/bin"'
+      src: "{{ role_path }}/files/profile.d/golang.sh"
       dest: /etc/profile.d/golang.sh
       owner: root
       group: root

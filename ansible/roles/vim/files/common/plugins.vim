@@ -20,9 +20,11 @@
 
 " General {{{
 
+  Plug 'airblade/vim-rooter'
+  Plug 'altercation/vim-colors-solarized'
+  Plug 'junegunn/fzf'
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
-  Plug 'altercation/vim-colors-solarized'
 "  Plug 'mileszs/ack.vim'
 "  Plug 'terryma/vim-multiple-cursors'
 "  Plug 'terryma/vim-expand-region'
@@ -38,15 +40,15 @@
 "
 " Programming {{{
 
-  Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+  Plug 'airblade/vim-gitgutter'
+  Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
   Plug 'neoclide/coc-json', {'tag': '1.2.6', 'do': 'yarn install --frozen-lockfile'}
+  Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
   Plug 'neoclide/coc-python', {'tag': '1.2.12', 'do': 'yarn install --frozen-lockfile'}
-  Plug 'neoclide/coc-yaml', {'tag': '1.0.4', 'do': 'yarn install --frozen-lockfile'}
+  Plug 'neoclide/coc-yaml', {'tag': '1.0.5', 'do': 'yarn install --frozen-lockfile'}
+  Plug 'tpope/vim-fugitive'
+
 "  Plug 'scrooloose/nerdcommenter'
-Plug 'tpope/vim-fugitive'
-"  Plug 'ctrlpvim/ctrlp.vim'
-"  Plug 'SirVer/ultisnips'
-"  Plug 'honza/vim-snippets'
 "  Plug 'scrooloose/syntastic'     " Do not use 'on' event-based loading since other plugins depend on syntastic
 "  Plug 'jimhester/lintr'
 "
@@ -54,9 +56,6 @@ Plug 'tpope/vim-fugitive'
 "  "Plug 'jiangmiao/auto-pairs' " Temporarily disabled: I seem to be deleting the pair often
 "  Plug 'vim-scripts/matchit.zip'
 "  Plug 'luochen1990/rainbow', {'on': 'RainbowToggle' }
-"
-"  Plug 'janko-m/vim-test'
-"  Plug 'kana/vim-vspec'
 "
 "  " Default language packs in vim-polyglot and override as necessary
 "  Plug 'sheerun/vim-polyglot'

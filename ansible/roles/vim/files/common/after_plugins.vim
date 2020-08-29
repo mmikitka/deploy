@@ -68,6 +68,19 @@
 
   " }}}
 
+  " FZF {{{
+
+    map <silent> <Leader>f :call fzf#run({'dir': FindRootDirectory(), 'sink': 'e'})<CR>
+
+  " }}}
+
+  " Rooter {{{
+
+    " Do not change the working directory
+    let g:rooter_manual_only = 1
+
+  " }}}
+
 "  " Ack {{{
 "
 "    nnoremap <Leader>g :Ack!<Space>
@@ -103,36 +116,6 @@
 "    let g:UltiSnipsExpandTrigger="<C-k>"
 "    let g:UltiSnipsJumpForwardTrigger="<C-k>"
 "    let g:UltiSnipsJumpBackwardTrigger="<C-j>"
-"
-"  " }}}
-"
-"  " YouCompleteMe {{{
-"
-"    let g:ycm_add_preview_to_completeopt = 1
-"    let g:ycm_autoclose_preview_window_after_completion = 1
-"    let g:ycm_autoclose_preview_window_after_insertion = 1
-"
-"  " }}}
-"
-"  " CtrlP {{{
-"
-"    let g:ctrlp_working_path_mode = 'ra'
-"    let g:ctrlp_switch_buffer = 'Et'
-"    let g:ctrlp_open_new_file = 'r'
-"    let g:ctrlp_open_multiple_files = '2vjr'
-"    let g:ctrlp_reuse_window = 'netrw\|help\|quickfix'
-"    let g:ctrlp_custom_ignore = {
-"      \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-"      \ 'file': '\v\.(exe|so|dll|pyc|o|obj)$'
-"      \ }
-"
-"    let g:ctrlp_use_caching = 0
-"    if executable('ag')
-"        set grepprg=ag\ --nogroup\ --nocolor
-"        let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-"    else
-"        let g:ctrlp_user_command = 'find %s -type f'
-"    endif
 "
 "  " }}}
 "
