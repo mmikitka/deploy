@@ -81,6 +81,40 @@
 
   " }}}
 
+  " vim-go {{{
+
+    " One reference configuration: https://hackernoon.com/my-neovim-setup-for-go-7f7b6e805876
+
+    " Disable the :GoDef shortcut (gd), since this is handled by the CoC
+    " Language Client.
+    let g:go_def_mapping_enabled = 0
+
+    au FileType go set noexpandtab
+    au FileType go set shiftwidth=2
+    au FileType go set softtabstop=2
+    au FileType go set tabstop=2
+
+    " Improve highlighting
+    let g:go_highlight_build_constraints = 1
+    let g:go_highlight_extra_types = 1
+    let g:go_highlight_fields = 1
+    let g:go_highlight_functions = 1
+    let g:go_highlight_methods = 1
+    let g:go_highlight_operators = 1
+    let g:go_highlight_structs = 1
+    let g:go_highlight_types = 1
+    let g:go_auto_sameids = 1
+    let g:go_auto_type_info = 1
+
+    " Auto-import deps on save
+    let g:go_fmt_command = "goimports"
+
+    " TODO: If I use Ale, he has some Ale configs
+    " TODO: If I return to ctrlp, there is a useful ctrlp + declarations
+    " integration
+
+  " }}}
+
 "  " Ack {{{
 "
 "    nnoremap <Leader>g :Ack!<Space>
