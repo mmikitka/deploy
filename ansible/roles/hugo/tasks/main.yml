@@ -1,0 +1,22 @@
+- block:
+  - name: Clone Hugo
+    git:
+      repo: https://github.com/gohugoio/hugo.git
+      dest: ~/src/hugo
+      # v0.74.3
+      version: da0437b481eff75508272e2b98615ed52bc157cf
+
+  - name: Install Hugo
+    command: go install --tags extended
+    args:
+      chdir: ~/src/hugo
+  when:
+    - ansible_distribution == 'Debian'
+
+- block:
+  - name: Install Hugo
+    become: yes
+    pacman:
+      name: hugo
+  when:
+    - ansible_distribution == 'ArchLinux'
