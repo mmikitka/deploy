@@ -2,6 +2,7 @@
 
 import argparse
 from datetime import datetime
+import os
 import re
 
 
@@ -18,7 +19,8 @@ sum_date_task = {}
 sum_tasklevel1 = {}
 sum_tasklevel2 = {}
 sum_tasklevel3 = {}
-with open('/home/matt/Documents/time-management/tasklog.csv', 'r') as f:
+with open(os.path.expanduser('/home/mmikitka/Documents/time-management/'
+                             'tasklog.csv'), 'r') as f:
     cur_task_start = None
     cur_task = None
     for line in f.readlines():
