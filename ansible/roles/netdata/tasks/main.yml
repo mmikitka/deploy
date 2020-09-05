@@ -34,4 +34,4 @@
       name: netdata
       state: latest
   when:
-    - ansible_distribution == 'ArchLinux'
+    - ansible_distribution == 'Archlinux'

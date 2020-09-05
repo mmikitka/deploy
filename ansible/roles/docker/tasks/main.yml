@@ -34,7 +34,7 @@
       name: docker
       state: latest
   when:
-    - ansible_distribution == 'ArchLinux'
+    - ansible_distribution == 'Archlinux'
 
 - name: Start and enable the docker daemon
   become: yes

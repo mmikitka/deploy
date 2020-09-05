@@ -1,35 +1,35 @@
 ---
 - block:
-  - name: Install PulseAudio and utilities
-    become: yes
-    apt:
-      name:
-        - pulseaudio
-        - pavucontrol
+    - name: Install PulseAudio and utilities
+      become: yes
+      apt:
+        name:
+          - pulseaudio
+          - pavucontrol
+
+    - name: Disable PC speaker
+      become: yes
+      modprobe:
+        name: pcspkr
+        state: absent
+
+    - name: Blacklist PC speaker module
+      become: yes
+      lineinfile:
+        name: /etc/modprobe.d/blacklist.conf
+        create: yes
+        regexp: "pcspkr"
+        line: "blacklist pcspkr"
   when:
     - ansible_distribution == 'Debian'
 
 - block:
-  - name: Install PulseAudio and utilities
-    become: yes
-    pacman:
-      name:
-        - alsa-utils
-        - pulseaudio
-        - pavucontrol
+    - name: Install PulseAudio and utilities
+      become: yes
+      pacman:
+        name:
+          - alsa-utils
+          - pulseaudio
+          - pavucontrol
   when:
-    - ansible_distribution == 'ArchLinux'
-
-- name: Disable PC speaker
-  become: yes
-  modprobe:
-    name: pcspkr
-    state: absent
-
-- name: Blacklist PC speaker module
-  become: yes
-  lineinfile:
-    name: /etc/modprobe.d/blacklist.conf
-    create: yes
-    regexp: "pcspkr"
-    line: "blacklist pcspkr"
+    - ansible_distribution == 'Archlinux'

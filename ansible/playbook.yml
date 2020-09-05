@@ -50,11 +50,11 @@
   when:
     - ansible_distribution == 'Debian'
 
-- name: ArchLinux
+- name: Archlinux
   hosts: 127.0.0.1
   connection: local
   roles:
     - aws
     - virt
   when:
-    - ansible_distribution == 'ArchLinux'
+    - ansible_distribution == 'Archlinux'

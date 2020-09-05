@@ -15,7 +15,7 @@
       name: rofi
       state: latest
   when:
-    - ansible_distribution == 'ArchLinux'
+    - ansible_distribution == 'Archlinux'
 
 - name: Create ~/.config/rofi
   file:

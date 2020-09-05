@@ -1,21 +1,21 @@
 ---
 - block:
-  - name: Install Bash completion
-    become: yes
-    apt:
-      name: bash-completion
-      state: latest
+    - name: Install Bash completion
+      become: yes
+      apt:
+        name: bash-completion
+        state: latest
   when:
     - ansible_distribution == 'Debian'
 
 - block:
-  - name: Install Bash completion
-    become: yes
-    pacman:
-      name: bash-completion
-      state: latest
+    - name: Install Bash completion
+      become: yes
+      pacman:
+        name: bash-completion
+        state: latest
   when:
-    - ansible_distribution == 'ArchLinux'
+    - ansible_distribution == 'Archlinux'
 
 - name: Delete ~/.profile
   file:

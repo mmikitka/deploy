@@ -15,7 +15,7 @@
       name: xmonad
       state: latest
   when:
-    - ansible_distribution == 'ArchLinux'
+    - ansible_distribution == 'Archlinux'
 
 - name: Create ~/.xmonad directory
   file:

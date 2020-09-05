@@ -54,7 +54,7 @@
           - python-pylint
           - python-jedi
         state: latest
-  when: ansible_distribution == 'ArchLinux'
+  when: ansible_distribution == 'Archlinux'
 
 - name: Configure environment variables
   become: yes

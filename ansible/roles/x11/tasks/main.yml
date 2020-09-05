@@ -18,7 +18,7 @@
         - xorg-xrandr
       state: present
   when:
-    - ansible_distribution == 'ArchLinux'
+    - ansible_distribution == 'Archlinux'
 
 - name: Delete ~/.xinitrc
   file:

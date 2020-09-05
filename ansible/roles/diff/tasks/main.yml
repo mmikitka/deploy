@@ -4,3 +4,5 @@
   apt:
     name: meld
     state: latest
+  when:
+    - ansible_distribution == 'Debian'

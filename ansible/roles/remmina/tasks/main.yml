@@ -12,4 +12,4 @@
     pacman:
       name: remmina
   when:
-    - ansible_distribution == 'ArchLinux'
+    - ansible_distribution == 'Archlinux'

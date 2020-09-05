@@ -17,4 +17,4 @@
         - wireshark-qt
         - tcpdump
   when:
-    - ansible_distribution == 'ArchLinux'
+    - ansible_distribution == 'Archlinux'

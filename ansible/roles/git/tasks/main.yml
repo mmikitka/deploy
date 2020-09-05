@@ -19,7 +19,7 @@
         - ctags
       state: latest
   when:
-    - ansible_distribution == 'ArchLinux'
+    - ansible_distribution == 'Archlinux'
 
 - name: Global Git configuration
   command: "git config --global {{ item.key }} {{ item.value }}"
