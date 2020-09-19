@@ -1,0 +1,4 @@
+#!/bin/sh
+
+umount /mnt/usbcrypt
+sudo cryptsetup close usbcrypt

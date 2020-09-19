@@ -26,6 +26,7 @@
     - sound
     - ssh
     - tasklog
+    - usbcrypt
     - vim
     - web_browser
     - wireshark

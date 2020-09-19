@@ -1,0 +1,7 @@
+#!/bin/sh
+set -aux
+
+sudo touch /tmp/usbcrypt
+this_dir=$(dirname $(readlink -f $0))
+gpg -d ${this_dir}/usb-lexar-key.gpg 2>/dev/null | sudo cryptsetup -v luksOpen UUID=c2a98e50-771c-4036-938d-9516bb4b085d usbcrypt
+mount /mnt/usbcrypt
