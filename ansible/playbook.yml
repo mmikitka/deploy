@@ -12,6 +12,7 @@
     - git
     - go
     - hugo
+    - k3s
     - lockout
     - menu
     - mplayer

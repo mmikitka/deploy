@@ -1,0 +1,51 @@
+- block:
+    - name: Import aur role
+      import_role:
+        name: aur
+
+    - name: Clone k3s-bin
+      git:
+        repo: https://aur.archlinux.org/k3s-bin.git
+        dest: ~/aur-builds/k3s-bin
+        # 1.19.3+k3s1
+        version: 3e9e1e87c36c2aed62bcb2fadfcfb380c69b0ae2
+
+    - name: Build and install k3s-bin
+      command: makepkg --install --syncdeps --rmdeps --clean --noconfirm
+      args:
+        chdir: ~/aur-builds/k3s-bin
+
+    - name: Install kubectl
+      become: yes
+      pacman:
+        name: kubectl
+  when:
+    - ansible_distribution == 'Archlinux'
+
+- name: Create ~/.kube/config
+  file:
+    path: "{{ ansible_env.HOME }}/.kube/config"
+    state: file
+
+- name: Copy k3s.yaml to ~/.kube/k3s.yaml
+  become: yes
+  shell: "cat /etc/rancher/k3s/k3s.yaml > {{ ansible_env.HOME }}/.kube/k3s.yaml"
+
+- name: Set permissions on ~/.kube/k3s.yaml
+  become: yes
+  file:
+    path: "{{ ansible_env.HOME }}/.kube/k3s.yaml"
+    owner: "{{ ansible_env.USER }}"
+    group: "{{ ansible_env.USER }}"
+    mode: "0600"
+
+- name: Update KUBECONFIG
+  lineinfile:
+    path: "{{ ansible_env.HOME }}/.bashrc"
+    regexp: "^KUBECONFIG="
+    line: "KUBECONFIG=~/.kube/k3s.yaml:~/.kube/config"
+
+- name: Copy k3s.bash
+  copy:
+    src: ../files/k3s.bash
+    dest: "{{ ansible_env.HOME }}/.bashrc.d/k3s.bash"
