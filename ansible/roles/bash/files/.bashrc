@@ -15,3 +15,12 @@ BROWSER=/usr/bin/google-chrome
 if [ -r ~/.bash_aliases ]; then
   . ~/.bash_aliases
 fi
+
+if [ -d ~/.bashrc.d ]; then
+  for i in ~/.bashrc.d/*.bash; do
+    if [ -r $i ]; then
+      . $i
+    fi
+  done
+  unset i
+fi
