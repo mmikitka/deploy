@@ -43,3 +43,19 @@
   copy:
     src: ../files/k3s.bash
     dest: "{{ ansible_env.HOME }}/.bashrc.d/k3s.bash"
+
+- name: Copy k3s-start
+  copy:
+    src: ../files/k3s-start
+    dest: "{{ ansible_env.HOME }}/bin/k3s-start"
+    owner: "{{ ansible_env.USER }}"
+    group: "{{ ansible_env.USER }}"
+    mode: "0700"
+
+- name: Copy k3s-stop
+  copy:
+    src: ../files/k3s-stop
+    dest: "{{ ansible_env.HOME }}/bin/k3s-stop"
+    owner: "{{ ansible_env.USER }}"
+    group: "{{ ansible_env.USER }}"
+    mode: "0700"

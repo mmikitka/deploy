@@ -1,0 +1,5 @@
+#!/bin/sh
+set -eau
+sudo systemctl stop iptables
+sudo systemctl stop ip6tables
+sudo systemctl start k3s
