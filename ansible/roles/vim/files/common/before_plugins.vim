@@ -179,9 +179,9 @@
   set sidescrolloff=5             " Minimum lines to keep to the right of the cursor
   set wrap                        " Wrap long lines
   set linebreak                   " Break wraps on words
-  set textwidth=80                " Maximum number of columns
+  set textwidth=0                 " Default textwidth to 0, and enable filetype overrides after
   set formatoptions=ctq           " Auto-wrap text and comments when textwidth is exceeded
-  set list                        " Enable highlighting of problematic whitespace characters
+  set list!                       " Enable highlighting of problematic whitespace characters
   set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+ " Highlight problematic whitespace
   set autoindent                  " Indent at the same level of the previous line
   set expandtab                   " Tabs are spaces, not tabs

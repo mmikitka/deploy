@@ -91,20 +91,8 @@
 
     au FileType go set noexpandtab
     au FileType go set shiftwidth=2
-    au FileType go set softtabstop=2
     au FileType go set tabstop=2
-
-    " Improve highlighting
-    let g:go_highlight_build_constraints = 1
-    let g:go_highlight_extra_types = 1
-    let g:go_highlight_fields = 1
-    let g:go_highlight_functions = 1
-    let g:go_highlight_methods = 1
-    let g:go_highlight_operators = 1
-    let g:go_highlight_structs = 1
-    let g:go_highlight_types = 1
-    let g:go_auto_sameids = 1
-    let g:go_auto_type_info = 1
+    au FileType go set listchars=tab:\ \ ,trail:-,extends:>,precedes:<,nbsp:+ " Same as default, minus tab markers
 
     " Auto-import deps on save
     let g:go_fmt_command = "goimports"
@@ -138,21 +126,15 @@
 "
 "  " }}}
 "
-"  " SnipMate {{{
-"
-"    let g:snips_author = 'Matt Mikitka <matt@mikitka.net>'
-"
-"  " }}}
-"
-"  " UltiSnips {{{
-"
-"    " Default expand trigger, Tab, conflicts with YCM.
-"    let g:UltiSnipsExpandTrigger="<C-k>"
-"    let g:UltiSnipsJumpForwardTrigger="<C-k>"
-"    let g:UltiSnipsJumpBackwardTrigger="<C-j>"
-"
-"  " }}}
-"
+" UltiSnips {{{
+
+    " Default expand trigger, Tab, conflicts with CoC.
+    let g:UltiSnipsExpandTrigger="<C-k>"
+    let g:UltiSnipsJumpForwardTrigger="<C-k>"
+    let g:UltiSnipsJumpBackwardTrigger="<C-j>"
+
+" }}}
+
 "  " Rainbow {{{
 "
 "    let g:rainbow_active = 0

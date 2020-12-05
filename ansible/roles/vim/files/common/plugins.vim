@@ -25,6 +25,9 @@
   Plug 'junegunn/fzf'
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
+  Plug 'sirver/UltiSnips'
+  Plug 'honza/vim-snippets'
+
 "  Plug 'mileszs/ack.vim'
 "  Plug 'terryma/vim-multiple-cursors'
 "  Plug 'terryma/vim-expand-region'
