@@ -7,12 +7,8 @@
     - base
     - bash
     - diff
-    - docker
     - fonts
     - git
-    - go
-    - hugo
-    - k3s
     - lockout
     - menu
     - mplayer
@@ -20,19 +16,30 @@
     - pass
     - python
     - readline
-    - remmina
-    - rss
     - rxvt
     - slock
     - sound
     - ssh
-    - tasklog
     - usbcrypt
     - vim
     - web_browser
-    - wireshark
     - x11
     - xmonad
+
+- name: Dev Tools
+  hosts: 127.0.0.1
+  connection: local
+  roles:
+    - wireshark
+    - tasklog
+    - rss
+    - remmina
+    - docker
+    - go
+    - hugo
+    - k3s
+  when:
+    - dev_tools_enabled|default(false)
 
 - name: Debian
   hosts: 127.0.0.1
@@ -56,7 +63,15 @@
   hosts: 127.0.0.1
   connection: local
   roles:
-    - aws
     - virt
   when:
     - ansible_distribution == 'Archlinux'
+
+- name: Archlinux Dev Tools
+  hosts: 127.0.0.1
+  connection: local
+  roles:
+    - aws
+  when:
+    - ansible_distribution == 'Archlinux'
+    - dev_tools_enabled|default(false)
