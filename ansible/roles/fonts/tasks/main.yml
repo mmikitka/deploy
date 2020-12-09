@@ -47,6 +47,14 @@
     - ansible_distribution == 'Debian'
 
 - block:
+  - name: Install TTF fonts
+    become: yes
+    pacman:
+      name:
+        - ttf-dejavu
+        - ttf-liberation
+        - noto-fonts
+
   - name: Install powerline fonts
     become: yes
     pacman:

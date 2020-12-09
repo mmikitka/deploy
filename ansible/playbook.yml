@@ -3,75 +3,107 @@
   hosts: 127.0.0.1
   connection: local
   roles:
-    - autojump
-    - base
-    - bash
-    - diff
-    - fonts
-    - git
-    - lockout
-    - menu
-    - mplayer
-    - netdata
-    - pass
-    - python
-    - readline
-    - rxvt
-    - slock
-    - sound
-    - ssh
-    - usbcrypt
-    - vim
-    - web_browser
-    - x11
-    - xmonad
+    - role: base
+    - role: bash
+    - role: diff
+    - role: fonts
+    - role: git
+    - role: autojump
+    - role: menu
+    - role: netdata
+    - role: pass
+    - role: python
+    - role: readline
+    - role: rxvt
+    - role: slock
+    - role: sound
+    - role: ssh
+    - role: usbcrypt
+    - role: vim
+    - role: web_browser
+    - role: x11
+    - role: xmonad
 
 - name: Dev Tools
   hosts: 127.0.0.1
   connection: local
   roles:
-    - wireshark
-    - tasklog
-    - rss
-    - remmina
-    - docker
-    - go
-    - hugo
-    - k3s
-  when:
-    - dev_tools_enabled|default(false)
+    - role: wireshark
+      when:
+        - dev_tools_enabled|default(false)
+    - role: tasklog
+      when:
+        - dev_tools_enabled|default(false)
+    - role: rss
+      when:
+        - dev_tools_enabled|default(false)
+    - role: remmina
+      when:
+        - dev_tools_enabled|default(false)
+    - role: docker
+      when:
+        - dev_tools_enabled|default(false)
+    - role: go
+      when:
+        - dev_tools_enabled|default(false)
+    - role: hugo
+      when:
+        - dev_tools_enabled|default(false)
+    - role: k3s
+      when:
+        - dev_tools_enabled|default(false)
 
 - name: Debian
   hosts: 127.0.0.1
   connection: local
   roles:
-    - alternatives
-    - battery
-    - debian_sources
-    - encrypted_partition
-    - graphviz
-    - pandoc
-    - pomtimer
-    - printer
-    - suspend_hibernate
-    - trackpad
-    - wifi
-  when:
-    - ansible_distribution == 'Debian'
+    - role: alternatives
+      when:
+        - ansible_distribution == 'Debian'
+    - role: battery
+      when:
+        - ansible_distribution == 'Debian'
+    - role: debian_sources
+      when:
+        - ansible_distribution == 'Debian'
+    - role: encrypted_partition
+      when:
+        - ansible_distribution == 'Debian'
+    - role: graphviz
+      when:
+        - ansible_distribution == 'Debian'
+    - role: pandoc
+      when:
+        - ansible_distribution == 'Debian'
+    - role: pomtimer
+      when:
+        - ansible_distribution == 'Debian'
+    - role: printer
+      when:
+        - ansible_distribution == 'Debian'
+    - role: suspend_hibernate
+      when:
+        - ansible_distribution == 'Debian'
+    - role: trackpad
+      when:
+        - ansible_distribution == 'Debian'
+    - role: wifi
+      when:
+        - ansible_distribution == 'Debian'
 
 - name: Archlinux
   hosts: 127.0.0.1
   connection: local
   roles:
-    - virt
-  when:
-    - ansible_distribution == 'Archlinux'
+    - role: virt
+      when:
+        - ansible_distribution == 'Archlinux'
 
 - name: Archlinux Dev Tools
   hosts: 127.0.0.1
   connection: local
   roles:
-    - aws
-  when:
-    - ansible_distribution == 'Archlinux'
-    - dev_tools_enabled|default(false)
+    - role: aws
+      when:
+        - ansible_distribution == 'Archlinux'
+        - dev_tools_enabled|default(false)

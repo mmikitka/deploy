@@ -144,11 +144,11 @@
     mode: 0644
 
 - name: Initialize NeoVim plugins (self)
-  command: nvim -c PlugInstall -c q
+  command: nvim -c PlugInstall -c q -c q
 
 - name: Initialize NeoVim plugins (root)
   become: yes
-  command: nvim -c PlugInstall -c q
+  command: nvim -c PlugInstall -c q -c q
 
 - name: Set directory permissions
   become: yes

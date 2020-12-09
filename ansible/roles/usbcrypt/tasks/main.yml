@@ -1,4 +1,10 @@
 ---
+- name: Create ~/bin
+  file:
+    path: $HOME/bin
+    state: directory
+    mode: 0700
+
 - name: Link files to ~/bin
   file:
     src: "{{ role_path }}/files/{{ item }}"

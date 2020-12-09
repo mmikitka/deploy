@@ -8,6 +8,11 @@
   when:
     - ansible_distribution == 'Debian'
 
+- name: Create ~/.config/systemd/user
+  file:
+    path: $HOME/.config/systemd/user
+    state: directory
+
 - name: Create ssh-agent.service
   copy:
     src: ../files/ssh-agent.service
@@ -19,6 +24,18 @@
     enabled: true
     state: started
     scope: user
+
+- name: Create ~/.ssh
+  file:
+    path: $HOME/.ssh
+    state: directory
+    mode: 0700
+
+- name: Create ~/.ssh/config
+  file:
+    path: $HOME/.ssh/config
+    state: touch
+    mode: 0600
 
 - name: Add AddKeysToAgent to SSH config
   lineinfile:
