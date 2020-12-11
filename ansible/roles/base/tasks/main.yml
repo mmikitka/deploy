@@ -1,82 +1,82 @@
 ---
 - block:
-  - name: Install base packages
-    become: yes
-    apt:
-      name:
-        - curl
-        - fd-find
-        - keepassxc
-        - less
-        - lsb-release
-        - man
-        - scrot
-        - silversearcher-ag
-        - tree
-        - wget
-      state: latest
+    - name: Install base packages
+      become: yes
+      apt:
+        name:
+          - curl
+          - fd-find
+          - keepassxc
+          - less
+          - lsb-release
+          - man
+          - scrot
+          - silversearcher-ag
+          - tree
+          - wget
+        state: latest
 
-  - name: fzf facts
-    set_fact:
-      fzf_src_dir: ${ANSIBLE_ENV.HOME}/src/fzf
+    - name: fzf facts
+      set_fact:
+        fzf_src_dir: ${ANSIBLE_ENV.HOME}/src/fzf
 
-  - name: Clone fzf
-    git:
-      repo: https://github.com/junegunn/fzf.git
-      dest: "{{ fzf_src_dir }}"
-      # 0.22.0
-      version: e2ae1b249cf2d5258b552cfd682c7c0911981e9b
-    register: _clone_fzf
+    - name: Clone fzf
+      git:
+        repo: https://github.com/junegunn/fzf.git
+        dest: "{{ fzf_src_dir }}"
+        # 0.22.0
+        version: e2ae1b249cf2d5258b552cfd682c7c0911981e9b
+      register: _clone_fzf
 
-  - name: Download fzf binary
-    become: yes
-    command: "{{ fzf_src_dir }}/install --bin"
-    when: _clone_fzf.changed
+    - name: Download fzf binary
+      become: yes
+      command: "{{ fzf_src_dir }}/install --bin"
+      when: _clone_fzf.changed
 
-  - name: Copy fzf binary to /usr/local/bin
-    become: yes
-    copy:
-      src: "{{ fzf_src_dir }}/bin/fzf"
-      dest: /usr/local/bin/fzf
-      owner: root
-      group: root
-      mode: "0755"
+    - name: Copy fzf binary to /usr/local/bin
+      become: yes
+      copy:
+        src: "{{ fzf_src_dir }}/bin/fzf"
+        dest: /usr/local/bin/fzf
+        owner: root
+        group: root
+        mode: "0755"
 
-  - name: Copy fzf bash completion
-    become: yes
-    copy:
-      src: "{{ fzf_src_dir }}/shell/completion.bash"
-      dest: /etc/bash_completion.d/fzf
-      owner: root
-      group: root
-      mode: "0644"
+    - name: Copy fzf bash completion
+      become: yes
+      copy:
+        src: "{{ fzf_src_dir }}/shell/completion.bash"
+        dest: /etc/bash_completion.d/fzf
+        owner: root
+        group: root
+        mode: "0644"
 
-  - name: Copy fzf key bindings
-    become: yes
-    copy:
-      src: "{{ fzf_src_dir }}/shell/key-bindings.bash"
-      dest: /etc/bashrc.d/fzf-key-bindings.bash
-      owner: root
-      group: root
-      mode: "0644"
+    - name: Copy fzf key bindings
+      become: yes
+      copy:
+        src: "{{ fzf_src_dir }}/shell/key-bindings.bash"
+        dest: /etc/bashrc.d/fzf-key-bindings.bash
+        owner: root
+        group: root
+        mode: "0644"
 
-  - name: Copy extra FZF completions
-    become: yes
-    copy:
-      src: "{{ role_path }}/files/fzf-matt"
-      dest: /etc/bash_completion.d/fzf-matt
-      owner: root
-      group: root
-      mode: "0644"
+    - name: Copy extra FZF completions
+      become: yes
+      copy:
+        src: "{{ role_path }}/files/fzf-matt"
+        dest: /etc/bash_completion.d/fzf-matt
+        owner: root
+        group: root
+        mode: "0644"
 
-  - name: Copy FZF configuration
-    become: yes
-    copy:
-      src: "{{ role_path }}/files/fzf.sh"
-      dest: /etc/profile.d/fzf.sh
-      owner: root
-      group: root
-      mode: "0644"
+    - name: Copy FZF configuration
+      become: yes
+      copy:
+        src: "{{ role_path }}/files/fzf.sh"
+        dest: /etc/profile.d/fzf.sh
+        owner: root
+        group: root
+        mode: "0644"
   when:
     - ansible_distribution == 'Debian'
 
@@ -95,6 +95,7 @@
       - the_silver_searcher
       - tree
       - wget
+      - inetutils
     state: latest
   when:
     - ansible_distribution == 'Archlinux'

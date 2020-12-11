@@ -1,5 +1,5 @@
 configuration {
-  font: "Iosevka Term regular 14";
+  font: "Iosevka 14";
   modi: "combi,ssh";
   combi-modi: "window,run";
   terminal: "/usr/bin/urxvt";
