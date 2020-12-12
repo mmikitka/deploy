@@ -89,13 +89,48 @@
     " Language Client.
     let g:go_def_mapping_enabled = 0
 
-    au FileType go set noexpandtab
-    au FileType go set shiftwidth=2
-    au FileType go set tabstop=2
-    au FileType go set listchars=tab:\ \ ,trail:-,extends:>,precedes:<,nbsp:+ " Same as default, minus tab markers
+    " run :GoBuild or :GoTestCompile based on the go file
+    function! s:build_go_files()
+      let l:file = expand('%')
+      if l:file =~# '^\f\+_test\.go$'
+        call go#test#Test(0, 1)
+      elseif l:file =~# '^\f\+\.go$'
+        call go#cmd#Build(0)
+      endif
+    endfunction
+
+    autocmd FileType go set noexpandtab
+    autocmd FileType go set shiftwidth=2
+    autocmd FileType go set tabstop=2
+    autocmd FileType go set listchars=tab:\ \ ,trail:-,extends:>,precedes:<,nbsp:+ " Same as default, minus tab markers
+    autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
+    autocmd FileType go nmap <leader>c <Plug>(go-coverage-toggle)
+    autocmd FileType go nmap <Leader>i <Plug>(go-info)
+    autocmd FileType go nmap <leader>r <Plug>(go-run)
+    autocmd FileType go nmap <leader>t <Plug>(go-test)
+    autocmd FileType go nmap <leader>tf <Plug>(go-test-func)
+    autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
+    autocmd Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
+    autocmd Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
+    autocmd Filetype go command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
 
     " Auto-import deps on save
     let g:go_fmt_command = "goimports"
+
+    " Show location results (e.g., metalinter issues) in quickfix
+    let g:go_list_type = "quickfix"
+
+    " Use camelCase instead of snake_case for auto tags
+    let g:go_addtags_transform = "camelcase"
+
+    " Metalinter
+    let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
+    let g:go_metalinter_autosave_enabled = ['vet', 'golint']
+
+    " Goto
+    let g:go_def_mapping_enabled = 1
+
+
 
     " TODO: If I use Ale, he has some Ale configs
     " TODO: If I return to ctrlp, there is a useful ctrlp + declarations

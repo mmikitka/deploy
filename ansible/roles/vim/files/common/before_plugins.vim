@@ -194,6 +194,7 @@
   set splitbelow                  " Puts new split windows to the bottom of the current
   set display+=lastline           " Display as much as possible of the last line of text in a window
   set sessionoptions-=options     " Remove all options and mappings
+  set autowrite                   " Auto-write contents of buffer when :make is called
 
   if v:version > 703
       set formatoptions+=j " Delete comment character when joining commented lines
@@ -233,6 +234,11 @@
   map <C-j> <C-w>j
   map <C-k> <C-w>k
   map <C-l> <C-w>l
+
+  " Quickfix navigation
+  map <leader>n :cnext<CR>
+  map <leader>p :cprev<CR>
+  nnoremap <leader>q :cclose<CR>
 
 " }}}
 
