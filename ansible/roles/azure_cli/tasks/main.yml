@@ -1,0 +1,18 @@
+- block:
+    - name: Import aur role
+      import_role:
+        name: aur
+
+    - name: Clone azure-cli
+      git:
+        repo: https://aur.archlinux.org/azure-cli.git
+        dest: ~/aur-builds/azure-cli
+        # 2.16.0
+        version: a68a00f14eaebd390550cf3d63cd387043857436
+
+    - name: Build and install azure-cli
+      command: makepkg --install --syncdeps --rmdeps --clean --noconfirm
+      args:
+        chdir: ~/aur-builds/azure-cli
+  when:
+    - ansible_distribution == 'Archlinux'

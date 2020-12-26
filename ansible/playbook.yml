@@ -107,6 +107,10 @@
       when:
         - ansible_distribution == 'Archlinux'
         - dev_tools_enabled|default(false)
+    - role: azure_cli
+      when:
+        - ansible_distribution == 'Archlinux'
+        - dev_tools_enabled|default(false)
     - role: gcloud_sdk
       when:
         - ansible_distribution == 'Archlinux'
