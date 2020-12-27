@@ -1,0 +1,17 @@
+---
+- name: Install android-tools
+  become: yes
+  pacman:
+    name:
+      - android-tools
+      - android-udev
+    state: latest
+  when:
+    - ansible_distribution == 'Archlinux'
+
+- name: Add user to adbusers group
+  become: yes
+  user:
+    name: "{{ ansible_env.USER }}"
+    groups: adbusers
+    append: yes
