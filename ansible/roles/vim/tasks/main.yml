@@ -59,12 +59,10 @@
 
 - name: Configure environment variables
   become: yes
-  copy:
+  file:
     src: "{{ role_path }}/files/vim_profile.sh"
     dest: /etc/profile.d/vim_profile.sh
-    owner: root
-    group: root
-    mode: 0644
+    state: link
 
 - name: Create directories
   become: yes
@@ -83,12 +81,10 @@
 
 - name: Copy configuration
   become: yes
-  copy:
+  file:
     src: "{{ role_path }}/files/{{ item }}"
     dest: "/usr/local/etc/vim-config/{{ item }}"
-    owner: root
-    group: root
-    mode: 0644
+    state: link
   with_items:
     - common/init.vim
     - common/before_plugins.vim
@@ -100,12 +96,10 @@
 
 - name: Install Vim init
   become: yes
-  copy:
+  file:
     src: "{{ role_path }}/files/vimrc.local"
     dest: /etc/vimrc.local
-    owner: root
-    group: root
-    mode: 0644
+    state: link
 
 - name: Touch /etc/vimrc
   become: yes
@@ -136,12 +130,10 @@
 
 - name: Install NeoVim init
   become: yes
-  copy:
+  file:
     src: "{{ role_path }}/files/vimrc.local"
     dest: /etc/xdg/nvim/sysinit.vim
-    owner: root
-    group: root
-    mode: 0644
+    state: link
 
 - name: Initialize NeoVim plugins (self)
   command: nvim -c PlugInstall -c q -c q
@@ -175,6 +167,7 @@
     mode: 0750
 
 - name: Copy CoC configuration
-  copy:
+  file:
     src: "{{ role_path }}/files/nvim/coc-settings.json"
     dest: "{{ ansible_env.HOME }}/.config/nvim/coc-settings.json"
+    state: link
