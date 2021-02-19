@@ -7,6 +7,9 @@
 --
 -- 2016-01-21:
 --   - Revised key bindings
+--
+-- 2021-02-19:
+--   - Launch a Neovim terminal buffer in an rxvt window
 
 import XMonad
 import Data.Monoid
@@ -65,6 +68,9 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
     -- launch a terminal
     [ ((modm .|. shiftMask, xK_t), spawn $ XMonad.terminal conf)
+
+    -- launch a Neovim terminal
+    , ((modm .|. shiftMask, xK_n), spawn "/usr/bin/urxvt -e nvim +terminal")
 
     -- launch firefox
     , ((modm .|. shiftMask, xK_f), spawn "firefox")
