@@ -1,42 +1,58 @@
 ---
 - block:
-  - name: Install Chromium
-    become: yes
-    apt:
-      name: chromium
-      state: latest
+    - name: Install Chromium
+      become: yes
+      apt:
+        name: chromium
+        state: latest
 
-  - name: Add Chrome Apt key
-    become: yes
-    apt_key:
-      url: https://dl.google.com/linux/linux_signing_key.pub
-      state: present
+    - name: Add Chrome Apt key
+      become: yes
+      apt_key:
+        url: https://dl.google.com/linux/linux_signing_key.pub
+        state: present
 
-  - name: Add Chrome Apt repository
-    become: yes
-    apt_repository:
-      repo: deb http://dl.google.com/linux/chrome/deb/ stable main
-      state: present
+    - name: Add Chrome Apt repository
+      become: yes
+      apt_repository:
+        repo: deb http://dl.google.com/linux/chrome/deb/ stable main
+        state: present
 
-  - name: Install Chrome
-    become: yes
-    apt:
-      name: google-chrome-stable
-      state: latest
+    - name: Install Chrome
+      become: yes
+      apt:
+        name: google-chrome-stable
+        state: latest
   when:
     - ansible_distribution == 'Debian'
 
 - block:
-  - name: Install Chromium
-    become: yes
-    pacman:
-      name: chromium
-      state: latest
+    - name: Install Chromium
+      become: yes
+      pacman:
+        name: chromium
+        state: latest
 
-  - name: Install Firefox
-    become: yes
-    pacman:
-      name: firefox
-      state: latest
+    - name: Install Firefox
+      become: yes
+      pacman:
+        name: firefox
+        state: latest
+
+    - name: Import aur role
+      import_role:
+        name: aur
+
+    - name: Clone google-chrome
+      git:
+        repo: https://aur.archlinux.org/google-chrome.git
+        dest: ~/aur-builds/google-chrome
+        # v88.0.4324.182
+        version: 746c000f6c64a6a25e45b2f2f425ec4945000189
+
+    - name: Build and install google-chrome
+      command: makepkg --install --syncdeps --rmdeps --clean --noconfirm
+      args:
+        chdir: ~/aur-builds/google-chrome
   when:
     - ansible_distribution == 'Archlinux'
