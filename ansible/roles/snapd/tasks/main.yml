@@ -1,0 +1,36 @@
+---
+- block:
+    - name: Install snapd
+      become: yes
+      apt:
+        name: snapd
+        state: latest
+  when:
+    - ansible_distribution == 'Debian'
+
+- block:
+    - name: Install snapd
+      block:
+        - name: Import aur role
+          import_role:
+            name: aur
+
+        - name: Clone snapd
+          git:
+            repo: https://aur.archlinux.org/snapd.git
+            dest: ~/aur-builds/snapd
+            # 2.50-1
+            version: c962a16e20e6b7cc7c49833019514130d17f7afe
+
+        - name: Build and install snapd
+          command: makepkg --install --syncdeps --rmdeps --clean --noconfirm
+          args:
+            chdir: ~/aur-builds/snapd
+  when:
+    - ansible_distribution == 'Archlinux'
+
+- name: Enable snapd.socket
+  systemd:
+    name: snapd.socket
+    enabled: true
+    state: started

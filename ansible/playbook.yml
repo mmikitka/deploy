@@ -16,6 +16,7 @@
     - role: readline
     - role: rxvt
     - role: slock
+    - role: snapd
     - role: sound
     - role: ssh
     - role: usbcrypt
