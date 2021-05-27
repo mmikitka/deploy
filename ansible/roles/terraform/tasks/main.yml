@@ -1,0 +1,9 @@
+---
+- block:
+    - name: Install Terraform
+      become: yes
+      pacman:
+        name: terraform
+        state: latest
+  when:
+    - ansible_distribution == 'Archlinux'
