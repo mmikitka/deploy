@@ -1,23 +1,23 @@
 ---
 - block:
-  - name: Install Git and ctags
-    become: yes
-    apt:
-      name:
-        - git
-        - ctags
-      state: latest
+    - name: Install Git and ctags
+      become: yes
+      apt:
+        name:
+          - git
+          - ctags
+        state: latest
   when:
     - ansible_distribution == 'Debian'
 
 - block:
-  - name: Install Git and ctags
-    become: yes
-    pacman:
-      name:
-        - git
-        - ctags
-      state: latest
+    - name: Install Git and ctags
+      become: yes
+      pacman:
+        name:
+          - git
+          - ctags
+        state: latest
   when:
     - ansible_distribution == 'Archlinux'
 
