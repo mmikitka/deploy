@@ -1,14 +1,10 @@
 {
-  "coc.preferences.formatOnSaveFiletypes": [
-    "json",
-    "python",
-    "yaml"
-  ],
-  "python.jediEnabled": true,
-  "python.linting.enabled": true,
-  "python.linting.pylintEnabled": true,
-  "yaml.format.enable": true,
-  "yaml.validate": true,
+  "coc.preferences.formatOnSaveFiletypes": [],
+  "python.jediEnabled": false,
+  "python.linting.enabled": false,
+  "python.linting.pylintEnabled": false,
+  "yaml.format.enable": false,
+  "yaml.validate": false,
   "yaml.hover": false,
   "yaml.completion": true,
   "yaml.schemas": {

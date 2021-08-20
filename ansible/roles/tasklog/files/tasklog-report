@@ -18,7 +18,7 @@ end = datetime.fromisoformat(args.end)
 sum_date_task = {}
 sum_tasklevel1 = {}
 sum_tasklevel2 = {}
-sum_tasklevel3 = {}
+sum_taskall = {}
 with open(os.path.expanduser('/home/mmikitka/Documents/time-management/'
                              'tasklog.csv'), 'r') as f:
     cur_task_start = None
@@ -55,11 +55,11 @@ with open(os.path.expanduser('/home/mmikitka/Documents/time-management/'
                 sum_tasklevel2[key] = 0
             sum_tasklevel2[key] += last_task_delta.total_seconds()
 
-            # Task (level 3)
+            # Task (all)
             key = ':'.join(last_task.split(':')[0:3])
-            if key not in sum_tasklevel3:
-                sum_tasklevel3[key] = 0
-            sum_tasklevel3[key] += last_task_delta.total_seconds()
+            if key not in sum_taskall:
+                sum_taskall[key] = 0
+            sum_taskall[key] += last_task_delta.total_seconds()
 
 # Group by date,task (all levels)
 print('By date, task')
@@ -104,14 +104,14 @@ for key in sorted(sum_tasklevel2.keys()):
     print(f'{key}: {duration:.1f}')
 print('')
 
-# Group by task (level 3)
-print('By task level 3')
-print('---------------')
-for key in sorted(sum_tasklevel3.keys()):
+# Group by task (all)
+print('By task')
+print('-------')
+for key in sorted(sum_taskall.keys()):
     if args.units == 'minutes':
-        duration = sum_tasklevel3[key] / 60.0
+        duration = sum_taskall[key] / 60.0
     elif args.units == 'hours':
-        duration = sum_tasklevel3[key] / 3600.0
+        duration = sum_taskall[key] / 3600.0
     else:
         raise ValueError('Invalid units')
     print(f'{key}: {duration:.1f}')
