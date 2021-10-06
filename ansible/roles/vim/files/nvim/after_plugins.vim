@@ -1,7 +1,3 @@
-"" UI {{{
-"  set inccommand=nosplit
-"" }
-"
 " Terminal {{{
   " Exit Terminal insert mode
   tnoremap <C-[> <C-\><C-n>
@@ -15,3 +11,11 @@
   " Open Terminal in insert mode
   autocmd TermOpen * startinsert
 " }
+
+" LSP {{{
+  " TODO: Chews too much resources
+  " lua require('lspconfig').pyright.setup{}
+
+  " TODO: Add keybindings and completions
+  " https://github.com/neovim/nvim-lspconfig#keybindings-and-completion
+" }}}

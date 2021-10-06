@@ -45,10 +45,6 @@
 
   Plug 'airblade/vim-gitgutter'
   Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-  "Plug 'neoclide/coc-json', {'tag': '1.2.6', 'do': 'yarn install --frozen-lockfile'}
-  "Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
-  "Plug 'neoclide/coc-python', {'tag': '1.2.12', 'do': 'yarn install --frozen-lockfile'}
-  "Plug 'neoclide/coc-yaml', {'tag': '1.0.5', 'do': 'yarn install --frozen-lockfile'}
   Plug 'tpope/vim-fugitive'
 
 "  Plug 'scrooloose/nerdcommenter'

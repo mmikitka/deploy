@@ -18,18 +18,20 @@
         mode: 0755
         checksum: sha256:1eea3d44f55bab0856d08737c0c50ead7645ae3afd6352a252bc403b9843ec95
 
+    # Installed Node.js latest stable version via binary archive
+    # https://github.com/nodejs/help/wiki/Installation#how-to-install-nodejs-via-binary-archive-on-linux
+    # mkdir -p ~/.node_modules
+    # npm config set prefix '~/.node_modules'
+    # PATH="~/.node_modules/bin:$PATH" in ~/.bashrc
     - name: Install supporting packages
       become: yes
       apt:
         name:
           - ansible-lint
           - fonts-powerline
-          - nodejs
           - npm
           - pylint3
           - python3-autopep8
-          - python3-jedi
-          - yarn
         state: latest
   when: ansible_distribution == 'Debian'
 
@@ -52,7 +54,6 @@
           - yarn
           - powerline-fonts
           - python-pylint
-          - python-jedi
           - python-pynvim
         state: latest
   when: ansible_distribution == 'Archlinux'
@@ -160,14 +161,6 @@
     dest: /usr/bin/vi
     state: link
 
-- name: Create CoC configuration directory
-  file:
-    dest: "{{ ansible_env.HOME }}/.config/nvim"
-    state: directory
-    mode: 0750
-
-- name: Copy CoC configuration
-  file:
-    src: "{{ role_path }}/files/nvim/coc-settings.json"
-    dest: "{{ ansible_env.HOME }}/.config/nvim/coc-settings.json"
-    state: link
+  # Install in the user global - see the "npm config" command above
+- name: Install pyright
+  command: npm install -g pyright

@@ -39,35 +39,6 @@
 
   " }}}
 
-  " CoC {{{
-
-    " Use <Tab> or <C-Space> to trigger completion
-    " and navigate to the next complete item
-    function! s:check_back_space() abort
-      let col = col('.') - 1
-      return !col || getline('.')[col - 1]  =~ '\s'
-    endfunction
-
-    inoremap <silent><expr> <Tab>
-          \ pumvisible() ? "\<C-n>" :
-          \ <SID>check_back_space() ? "\<Tab>" :
-          \ coc#refresh()
-
-    inoremap <silent><expr> <c-space> coc#refresh()
-    inoremap <silent><expr> <NUL> coc#refresh()
-
-    " Use <Tab> and <S-Tab> to cycle through the options
-    inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-    inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
-    " Use <Enter> to confirm completion
-    inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-
-    " Close completion window when completion is done
-    autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
-
-  " }}}
-
   " FZF {{{
 
     map <silent> <Leader>f :call fzf#run({'dir': FindRootDirectory(), 'sink': 'e'})<CR>
@@ -177,16 +148,16 @@
 "
 "  " }}}
 "
-"  " Fugitive {{{
-"
-"    nnoremap <silent> <Leader>gs :Gstatus<CR>
-"    nnoremap <silent> <Leader>gd :Gdiff<CR>
-"    nnoremap <silent> <Leader>gc :Gcommit<CR>
-"    nnoremap <silent> <Leader>gl :Glog<CR>
-"    nnoremap <silent> <Leader>gp :Git push<CR>
-"    nnoremap <silent> <Leader>gw :Gwrite<CR>
-"    nnoremap <silent> <Leader>gg :SignifyToggle<CR>
-"
+  " Fugitive {{{
+
+    nnoremap <silent> <Leader>gs :Gstatus<CR>
+    nnoremap <silent> <Leader>gd :Gdiff<CR>
+    nnoremap <silent> <Leader>gc :Gcommit<CR>
+    nnoremap <silent> <Leader>gl :Glog<CR>
+    nnoremap <silent> <Leader>gp :Git push<CR>
+    nnoremap <silent> <Leader>gw :Gwrite<CR>
+    nnoremap <silent> <Leader>gg :SignifyToggle<CR>
+
 "  " }}}
 "
 "  " UndoTree {{{
