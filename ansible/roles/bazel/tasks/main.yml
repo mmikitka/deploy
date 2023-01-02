@@ -1,0 +1,19 @@
+---
+- block:
+    - name: Import aur role
+      import_role:
+        name: aur
+
+    - name: Clone bazelisk
+      git:
+        repo: https://aur.archlinux.org/bazelisk.git
+        dest: ~/aur-builds/bazelisk
+        # 1.14.0
+        version: da88430268c7d4d9ca96b4e3dfa8a2c978f7aee6
+
+    - name: Build and install bazelisk
+      command: makepkg --install --syncdeps --rmdeps --clean --noconfirm
+      args:
+        chdir: ~/aur-builds/bazelisk
+  when:
+    - ansible_distribution == 'Archlinux'

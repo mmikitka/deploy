@@ -7,8 +7,8 @@
       git:
         repo: https://aur.archlinux.org/google-cloud-sdk.git
         dest: ~/aur-builds/google-cloud-sdk
-        # 321.0.0
-        version: 1dd9c10c722c2c5bcb5cb068326e58ef985f0b4f
+        # 404.0.0
+        version: 3c0b1479dd2094e59132f6b3018d6cfe2c6f31a9
 
     - name: Build and install google-cloud-sdk
       command: makepkg --install --syncdeps --rmdeps --clean --noconfirm

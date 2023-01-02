@@ -24,8 +24,8 @@
       git:
         repo: https://aur.archlinux.org/autojump.git
         dest: ~/aur-builds/autojump
-        # v22.5.3-7
-        version: 43ce4aae5b83c65337ba8dfd35026dd65e41c3e9
+        # 22.5.3-9
+        version: df746683f29a323beea8bc233cbfb7efb8f53a6a
 
     - name: Build and install autojump
       command: makepkg --install --syncdeps --rmdeps --clean --noconfirm

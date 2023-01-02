@@ -47,8 +47,8 @@
       git:
         repo: https://aur.archlinux.org/google-chrome.git
         dest: ~/aur-builds/google-chrome
-        # v88.0.4324.182
-        version: 746c000f6c64a6a25e45b2f2f425ec4945000189
+        # v108.0.5359.124
+        version: 3b550cc114abcec92edcdb2b43074c925b0d03b4
 
     - name: Build and install google-chrome
       command: makepkg --install --syncdeps --rmdeps --clean --noconfirm

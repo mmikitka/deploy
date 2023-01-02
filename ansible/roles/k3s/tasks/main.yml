@@ -7,8 +7,8 @@
       git:
         repo: https://aur.archlinux.org/k3s-bin.git
         dest: ~/aur-builds/k3s-bin
-        # 1.19.3+k3s1
-        version: 3e9e1e87c36c2aed62bcb2fadfcfb380c69b0ae2
+        # 1.21.0+k3s1
+        version: 197688501ee8d2131f1c4969a228eb854c6ee0ad
 
     - name: Build and install k3s-bin
       command: makepkg --install --syncdeps --rmdeps --clean --noconfirm

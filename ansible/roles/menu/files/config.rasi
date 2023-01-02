@@ -3,7 +3,9 @@ configuration {
   modi: "combi,ssh";
   combi-modi: "window,run";
   terminal: "/usr/bin/urxvt";
+  /* Font is darker in latest version of rofi since upgrade on Aug 30, 2021
   theme: "~/.rasi/solarized.rasi";
+  */
 
   /* Remove key bindings for use elsewhere */
   kb-remove-to-eol: "Control+z";
@@ -11,8 +13,10 @@ configuration {
   kb-remove-char-back: "BackSpace,Shift+BackSpace";
 
   /* Redefined key bindings */
+  /* Keybindings are currently busted since upgrade on Aug 30, 2021
   kb-row-up: "Up,Control+k";
   kb-row-down: "Down,Control+j";
   kb-mode-next: "Control+l,Control+n";
   kb-mode-previous: "Control+h,Control+p";
+  */
 }

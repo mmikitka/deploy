@@ -18,8 +18,8 @@ end = datetime.fromisoformat(args.end)
 sum_date_task = {}
 sum_tasklevel1 = {}
 sum_tasklevel2 = {}
-sum_taskall = {}
-with open(os.path.expanduser('/home/mmikitka/Documents/time-management/'
+sum_tasklevel3 = {}
+with open(os.path.expanduser('/home/matt/Documents/valencraft/time-management/'
                              'tasklog.csv'), 'r') as f:
     cur_task_start = None
     cur_task = None
