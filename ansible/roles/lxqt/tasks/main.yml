@@ -7,6 +7,7 @@
           - lxqt
           - breeze-icons
           - oxygen-icons
+          - rng-tools
           - sddm
         state: latest
 
@@ -14,6 +15,14 @@
       become: yes
       systemd:
         name: sddm
+        state: started
+        enabled: yes
+
+    # Increase entropy to increase LightDM startup time
+    - name: Enable rngd at boot
+      become: yes
+      systemd:
+        name: rngd
         state: started
         enabled: yes
   when:
