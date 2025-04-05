@@ -19,6 +19,7 @@ sum_date_task = {}
 sum_tasklevel1 = {}
 sum_tasklevel2 = {}
 sum_tasklevel3 = {}
+sum_taskall = {}
 with open(os.path.expanduser('/home/matt/Documents/valencraft/time-management/'
                              'tasklog.csv'), 'r') as f:
     cur_task_start = None
@@ -56,10 +57,9 @@ with open(os.path.expanduser('/home/matt/Documents/valencraft/time-management/'
             sum_tasklevel2[key] += last_task_delta.total_seconds()
 
             # Task (all)
-            key = ':'.join(last_task.split(':')[0:3])
-            if key not in sum_taskall:
-                sum_taskall[key] = 0
-            sum_taskall[key] += last_task_delta.total_seconds()
+            if last_task not in sum_taskall:
+                sum_taskall[last_task] = 0
+            sum_taskall[last_task] += last_task_delta.total_seconds()
 
 # Group by date,task (all levels)
 print('By date, task')
